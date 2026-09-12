@@ -1,36 +1,21 @@
-import Navbar from "./components/layout/Navbar";
+import AnnouncementBar from "./components/layout/AnnouncementBar/AnnouncementBar";
+import Header from "./components/layout/Header/Header";
+import Navigation from "./components/layout/Navigation/Navigation";
+import ShowcaseHero from "./features/home/components/ShowcaseHero/ShowcaseHero";
+import HeroBenefits from "./features/home/components/HeroBenefits/HeroBenefits";
 
 function App() {
     return (
         <div className="app">
-            <Navbar />
+            <header>
+                <AnnouncementBar />
+                <Header />
+                <Navigation />
+            </header>
 
             <main>
-                <section
-                    style={{
-                        minHeight: "100vh",
-                        display: "grid",
-                        placeItems: "center",
-                    }}
-                >
-                    <div style={{ textAlign: "center" }}>
-                        <p
-                            style={{
-                                color: "var(--color-primary)",
-                                fontWeight: 700,
-                                marginBottom: "12px",
-                            }}
-                        >
-                            JWANDOON
-                        </p>
-
-                        <h1 className="heading-font">
-                            Premium Products.
-                            <br />
-                            Better Prices.
-                        </h1>
-                    </div>
-                </section>
+                <ShowcaseHero />
+                <HeroBenefits />
             </main>
         </div>
     );

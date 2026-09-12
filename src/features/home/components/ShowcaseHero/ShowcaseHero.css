@@ -1,0 +1,528 @@
+.showcase-hero {
+    position: relative;
+    min-height: 700px;
+    overflow: hidden;
+    background: #1d1712;
+    isolation: isolate;
+}
+
+/* =========================================
+   BACKGROUND SLIDES
+========================================= */
+
+.showcase-hero__slides {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+}
+
+.showcase-hero__slide {
+    position: absolute;
+    inset: 0;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    opacity: 0;
+    transform: scale(1.04);
+
+    transition:
+        opacity 1.4s ease,
+        transform 7s ease;
+}
+
+.showcase-hero__slide--active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* =========================================
+   DARK GRADIENT OVERLAY
+========================================= */
+
+.showcase-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(20, 14, 10, 0.92) 0%,
+            rgba(20, 14, 10, 0.78) 28%,
+            rgba(20, 14, 10, 0.42) 55%,
+            rgba(20, 14, 10, 0.18) 100%
+        );
+}
+
+.showcase-hero__light {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 55%;
+    height: 100%;
+
+    z-index: -1;
+
+    background:
+        radial-gradient(
+            circle at 35% 50%,
+            rgba(194, 142, 46, 0.18),
+            transparent 55%
+        );
+
+    pointer-events: none;
+}
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.showcase-hero__container {
+    position: relative;
+    z-index: 2;
+
+    min-height: 700px;
+
+    display: flex;
+    align-items: center;
+}
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.showcase-hero__content {
+    width: min(620px, 55%);
+    padding: 80px 0;
+    color: #fff;
+}
+
+.showcase-hero__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    color: #e3b95f;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+}
+
+.showcase-hero__eyebrow i {
+    width: 34px;
+    height: 1px;
+    background: #e3b95f;
+}
+
+/* =========================================
+   TITLE
+========================================= */
+
+.showcase-hero__title {
+    margin-top: 24px;
+
+    font-size: clamp(52px, 6vw, 86px);
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+    font-weight: 600;
+
+    text-shadow:
+        0 4px 25px rgba(0, 0, 0, 0.18);
+
+    animation: heroContentIn 0.8s ease both;
+}
+
+.showcase-hero__title em {
+    color: #e3b95f;
+    font-style: italic;
+}
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.showcase-hero__description {
+    max-width: 500px;
+    margin-top: 28px;
+
+    color: rgba(255, 255, 255, 0.78);
+
+    font-size: 14px;
+    line-height: 1.85;
+    font-weight: 500;
+
+    animation: heroContentIn 0.9s ease 0.1s both;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.showcase-hero__buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    margin-top: 34px;
+
+    animation: heroContentIn 1s ease 0.2s both;
+}
+
+/* Hero secondary button uses the global button system
+   but stays visible against the dark background. */
+
+.showcase-hero .showcase-hero__secondary {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(10px);
+}
+
+.showcase-hero .showcase-hero__secondary:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+/* =========================================
+   TRUST ITEMS
+========================================= */
+
+.showcase-hero__trust {
+    display: flex;
+    gap: 35px;
+
+    margin-top: 55px;
+
+    animation: heroContentIn 1s ease 0.3s both;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.trust-item > span {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #e3b95f;
+
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+
+    border-radius: 50%;
+}
+
+.trust-item svg {
+    width: 16px;
+}
+
+.trust-item strong,
+.trust-item small {
+    display: block;
+}
+
+.trust-item strong {
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.trust-item small {
+    margin-top: 3px;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 8px;
+}
+
+/* =========================================
+   SLIDER CONTROLS
+========================================= */
+
+.showcase-hero__controls {
+    position: absolute;
+    left: 50%;
+    bottom: 38px;
+
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    transform: translateX(-50%);
+}
+
+.showcase-hero__controls > button {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 50%;
+
+    backdrop-filter: blur(8px);
+
+    cursor: pointer;
+
+    transition:
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+.showcase-hero__controls > button:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    transform: scale(1.06);
+}
+
+.showcase-hero__controls > button svg {
+    width: 15px;
+}
+
+/* =========================================
+   INDICATORS
+========================================= */
+
+.showcase-hero__indicators {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.showcase-hero__indicators button {
+    width: 22px;
+    height: 2px;
+
+    padding: 0;
+
+    border: 0;
+    background: rgba(255, 255, 255, 0.35);
+
+    cursor: pointer;
+
+    transition:
+        width var(--transition-base),
+        background var(--transition-base);
+}
+
+.showcase-hero__indicators button.is-active {
+    width: 42px;
+    background: #e3b95f;
+}
+
+/* =========================================
+   COUNTER
+========================================= */
+
+.showcase-hero__counter {
+    position: absolute;
+    right: 38px;
+    bottom: 38px;
+
+    z-index: 10;
+
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.showcase-hero__counter strong {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.showcase-hero__counter span {
+    font-size: 11px;
+}
+
+.showcase-hero__counter small {
+    font-size: 10px;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes heroContentIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+    .showcase-hero__content {
+        width: 62%;
+    }
+
+    .showcase-hero__title {
+        font-size: clamp(48px, 6vw, 70px);
+    }
+
+    .showcase-hero__overlay {
+        background:
+            linear-gradient(
+                90deg,
+                rgba(20, 14, 10, 0.94) 0%,
+                rgba(20, 14, 10, 0.76) 45%,
+                rgba(20, 14, 10, 0.3) 100%
+            );
+    }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+    .showcase-hero {
+        min-height: 690px;
+    }
+
+    .showcase-hero__container {
+        min-height: 690px;
+        align-items: flex-end;
+    }
+
+    .showcase-hero__content {
+        width: 100%;
+        padding: 80px 0 120px;
+        text-align: center;
+    }
+
+    .showcase-hero__eyebrow {
+        justify-content: center;
+        font-size: 8px;
+    }
+
+    .showcase-hero__title {
+        font-size: clamp(46px, 12vw, 64px);
+    }
+
+    .showcase-hero__description {
+        max-width: 430px;
+        margin-inline: auto;
+        font-size: 12px;
+    }
+
+    .showcase-hero__buttons {
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .showcase-hero__trust {
+        justify-content: center;
+        margin-top: 35px;
+    }
+
+    .showcase-hero__overlay {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(20, 14, 10, 0.3) 0%,
+                rgba(20, 14, 10, 0.55) 45%,
+                rgba(20, 14, 10, 0.94) 100%
+            );
+    }
+
+    .showcase-hero__controls {
+        bottom: 25px;
+    }
+
+    .showcase-hero__counter {
+        display: none;
+    }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 500px) {
+    .showcase-hero {
+        min-height: 650px;
+    }
+
+    .showcase-hero__container {
+        min-height: 650px;
+    }
+
+    .showcase-hero__content {
+        padding-bottom: 105px;
+    }
+
+    .showcase-hero__description {
+        font-size: 11px;
+        line-height: 1.7;
+    }
+
+    .showcase-hero__buttons {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .showcase-hero__primary {
+        width: 100%;
+        max-width: 220px;
+        justify-content: center;
+    }
+
+    .showcase-hero__trust {
+        gap: 18px;
+    }
+
+    .trust-item small {
+        display: none;
+    }
+
+    .showcase-hero__controls > button {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .showcase-hero__slide {
+        transition: none;
+    }
+
+    .showcase-hero__title,
+    .showcase-hero__description,
+    .showcase-hero__buttons,
+    .showcase-hero__trust {
+        animation: none;
+    }
+}

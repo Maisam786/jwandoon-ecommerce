@@ -1,0 +1,302 @@
+.navigation {
+    position: relative;
+    z-index: 1000;
+    background: var(--color-background);
+    border-top: 1px solid rgba(43, 27, 16, 0.05);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.navigation__container {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+}
+
+.navigation__links {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.navigation__link {
+    position: relative;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 18px;
+    color: var(--color-text-secondary);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    transition:
+        color var(--transition-base),
+        background var(--transition-base),
+        transform var(--transition-fast);
+}
+
+.navigation__link:hover {
+    color: var(--color-text);
+    background: var(--color-surface);
+    transform: translateY(-1px);
+}
+
+.navigation__link--active {
+    color: #fff;
+    background: var(--color-primary);
+    box-shadow: 0 5px 14px rgba(194, 142, 46, 0.2);
+}
+
+.navigation__link--active:hover {
+    color: #fff;
+    background: var(--color-primary-hover);
+}
+
+/* SHOP */
+
+.navigation__shop {
+    position: relative;
+    height: 58px;
+    display: flex;
+    align-items: center;
+}
+
+.navigation__shop-button {
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.navigation__shop-button svg {
+    width: 14px;
+    height: 14px;
+    transition: transform var(--transition-base);
+}
+
+.navigation__shop:hover .navigation__shop-button svg,
+.navigation__shop--open .navigation__shop-button svg {
+    transform: rotate(180deg);
+}
+
+/* Keep mega menu visible while moving from button to panel */
+
+.navigation__shop:hover .mega-menu,
+.navigation__shop--open .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* HOT */
+
+.navigation__hot {
+    position: absolute;
+    top: -8px;
+    right: 4px;
+    padding: 3px 6px;
+    color: #fff;
+    background: #c7352d;
+    border-radius: 100px;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    box-shadow: 0 3px 8px rgba(199, 53, 45, 0.2);
+}
+
+/* MOBILE BUTTON */
+
+.navigation__mobile-button {
+    display: none;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.navigation__mobile-button:hover {
+    background: var(--color-surface);
+}
+
+.navigation__mobile-button svg {
+    width: 21px;
+    height: 21px;
+}
+
+/* MOBILE MENU */
+
+.navigation__mobile-menu {
+    display: none;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .navigation {
+        display: none;
+        z-index: 1000;
+    }
+
+    .navigation__container {
+        min-height: 58px;
+        justify-content: flex-end;
+    }
+
+    .navigation__links {
+        display: none;
+    }
+
+    .navigation__mobile-button {
+        display: flex;
+    }
+
+    .navigation__mobile-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: calc(100vh - 58px);
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+        background: var(--color-background);
+        border-top: 1px solid var(--color-border);
+        box-shadow: var(--shadow-lg);
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-10px);
+
+        transition:
+            opacity var(--transition-base),
+            visibility var(--transition-base),
+            transform var(--transition-base);
+    }
+
+    .navigation__mobile-menu--open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .navigation__mobile-link {
+        position: relative;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0 16px;
+        color: var(--color-text-secondary);
+        background: transparent;
+        border: 0;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+            color var(--transition-fast),
+            background var(--transition-fast);
+    }
+
+    .navigation__mobile-link:hover {
+        color: var(--color-text);
+        background: var(--color-surface);
+    }
+
+    .navigation__mobile-link--active {
+        color: #fff;
+        background: var(--color-primary);
+    }
+
+    .navigation__mobile-shop-button {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .navigation__mobile-shop-button svg {
+        width: 16px;
+        height: 16px;
+        transition: transform var(--transition-base);
+    }
+
+    .navigation__mobile-chevron--open {
+        transform: rotate(180deg);
+    }
+
+    /*
+       MegaMenu is no longer positioned like
+       the desktop dropdown on mobile.
+    */
+
+    .navigation__mobile-shop-content {
+        width: 100%;
+        padding: 4px 0 10px;
+    }
+
+    .navigation__mobile-shop-content .mega-menu {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: 100%;
+        max-height: none;
+        padding: 12px;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+        border: 0;
+        border-radius: 10px;
+        box-shadow: none;
+        background: var(--color-surface);
+    }
+
+    .navigation__mobile-shop-content .mega-menu__inner {
+        display: block;
+        min-height: auto;
+    }
+
+    .navigation__mobile-shop-content .mega-menu__categories {
+        padding: 0;
+        border-right: 0;
+    }
+
+    .navigation__mobile-shop-content .mega-menu__popular,
+    .navigation__mobile-shop-content .mega-menu__brands {
+        display: none;
+    }
+
+    .navigation__mobile-shop-content .mega-menu__heading {
+        margin-bottom: 8px;
+    }
+
+    .navigation__mobile-shop-content .mega-menu__category {
+        min-height: 42px;
+    }
+}
+
+/* SMALL PHONES */
+
+@media (max-width: 500px) {
+
+    .navigation__mobile-menu {
+        padding: 10px;
+    }
+
+    .navigation__mobile-link {
+        min-height: 46px;
+    }
+}
