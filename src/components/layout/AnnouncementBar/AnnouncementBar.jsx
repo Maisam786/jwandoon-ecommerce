@@ -1,5 +1,5 @@
 import { FiChevronRight, FiX } from "react-icons/fi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./AnnouncementBar.css";
 
@@ -13,6 +13,14 @@ export default function AnnouncementBar() {
     const [current, setCurrent] = useState(0);
     const [visible, setVisible] = useState(true);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrent((prev) => (prev + 1) % announcements.length);
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     const nextAnnouncement = () => {
         setCurrent((prev) => (prev + 1) % announcements.length);
     };
@@ -24,6 +32,7 @@ export default function AnnouncementBar() {
             <div className="announcement__content">
 
                 <button
+                    type="button"
                     className="announcement__arrow"
                     onClick={nextAnnouncement}
                     aria-label="Next announcement"
@@ -36,6 +45,7 @@ export default function AnnouncementBar() {
                 </p>
 
                 <button
+                    type="button"
                     className="announcement__close"
                     onClick={() => setVisible(false)}
                     aria-label="Close announcement"

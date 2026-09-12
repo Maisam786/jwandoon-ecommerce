@@ -79,7 +79,7 @@ export default function Navigation() {
                             <FiChevronDown />
                         </button>
 
-                        <MegaMenu />
+                        <MegaMenu variant="desktop" />
                     </div>
 
                     {links.slice(1).map((link) => (
