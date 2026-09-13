@@ -1,53 +1,74 @@
-import { FiArrowRight, FiMail } from "react-icons/fi";
+import { FiTruck, FiShield, FiRefreshCw, FiHeart } from "react-icons/fi";
 
 import "./Newsletter.css";
 
+const benefits = [
+  {
+    icon: FiTruck,
+    title: "Fast Delivery",
+    text: "Quick and reliable delivery to your doorstep.",
+  },
+  {
+    icon: FiShield,
+    title: "Secure Payments",
+    text: "Your payment information is always protected.",
+  },
+  {
+    icon: FiRefreshCw,
+    title: "Easy Returns",
+    text: "Simple and hassle-free returns when needed.",
+  },
+  {
+    icon: FiHeart,
+    title: "Trusted Shopping",
+    text: "Quality products and a shopping experience you can trust.",
+  },
+];
+
 export default function Newsletter() {
-    return (
-        <section className="newsletter">
-            <div className="container">
-                <div className="newsletter__box">
-                    <div className="newsletter__decor newsletter__decor--one" />
-                    <div className="newsletter__decor newsletter__decor--two" />
+  return (
+    <section className="newsletter">
+      <div className="container">
+        <div className="newsletter__header">
+          <span>WHY JWANDOON</span>
 
-                    <div className="newsletter__content">
-                        <span className="newsletter__eyebrow">
-                            Stay In The Loop
-                        </span>
+          <div className="newsletter__title">
+            <h2>
+              Shopping made
+              <em> simple.</em>
+            </h2>
 
-                        <h2>
-                            Get the latest
-                            <span> from Jwandoon.</span>
-                        </h2>
+            <svg
+              className="newsletter__marker"
+              viewBox="0 0 600 45"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path d="M5 25 Q80 38 380 20" />
+            </svg>
+          </div>
 
-                        <p>
-                            Subscribe for new arrivals, exclusive deals,
-                            and special offers delivered straight to your inbox.
-                        </p>
-                    </div>
+          <p>
+            Everything you need for a smooth, secure and enjoyable shopping
+            experience.
+          </p>
+        </div>
 
-                    <form className="newsletter__form">
-                        <div className="newsletter__input">
-                            <FiMail />
+        <div className="newsletter__benefits">
+          {benefits.map(({ icon: Icon, title, text }) => (
+            <div className="newsletter__benefit" key={title}>
+              <div className="newsletter__icon">
+                <Icon />
+              </div>
 
-                            <input
-                                type="email"
-                                placeholder="Enter your email address"
-                                aria-label="Email address"
-                            />
-                        </div>
-
-                        <button type="submit">
-                            Subscribe
-                            <FiArrowRight />
-                        </button>
-                    </form>
-
-                    <span className="newsletter__note">
-                        No spam. Unsubscribe anytime.
-                    </span>
-                </div>
+              <div>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </div>
             </div>
-        </section>
-    );
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
