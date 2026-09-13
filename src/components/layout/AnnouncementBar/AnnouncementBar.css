@@ -1,105 +1,256 @@
+/* =========================================
+   ANNOUNCEMENT BAR
+========================================= */
+
 .announcement {
     position: relative;
 
     width: 100%;
+    min-height: var(--announcement-height);
 
-    background: var(--color-text);
     color: var(--color-background);
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--color-text) 0%,
+            #3a2517 50%,
+            var(--color-text) 100%
+        );
 
     overflow: hidden;
 }
 
+
+/* Subtle premium accent */
+
+.announcement::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 50%;
+
+    width: 40%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--color-primary),
+            transparent
+        );
+
+    transform: translateX(-50%);
+
+    opacity: 0.75;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
 .announcement__content {
-    min-height: 38px;
+    position: relative;
 
     width: min(
         calc(100% - (var(--page-padding) * 2)),
         var(--container-width)
     );
 
+    min-height: var(--announcement-height);
+
     margin-inline: auto;
 
     display: flex;
     align-items: center;
     justify-content: center;
-
-    position: relative;
 }
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.announcement__message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+
+    padding-inline: 48px;
+}
+
 
 .announcement__text {
     margin: 0;
 
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    color: rgba(252, 249, 242, 0.92);
 
-    animation: announcementFade 450ms var(--transition-smooth);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+
+    text-align: center;
+
+    animation:
+        announcement-enter
+        450ms
+        var(--transition-smooth)
+        both;
 }
+
+
+/* =========================================
+   CONTROLS
+========================================= */
 
 .announcement__arrow,
 .announcement__close {
     position: absolute;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 30px;
+    height: 30px;
 
-    color: rgba(252, 249, 242, 0.7);
+    display: inline-grid;
+    place-items: center;
+
+    color: rgba(252, 249, 242, 0.55);
+
+    border-radius: var(--radius-full);
 
     transition:
         color var(--transition-fast),
+        background var(--transition-fast),
         transform var(--transition-fast);
 }
 
+
 .announcement__arrow {
     left: 0;
-
-    width: 26px;
-    height: 26px;
 }
+
 
 .announcement__close {
     right: 0;
-
-    width: 26px;
-    height: 26px;
 }
+
+
+/* =========================================
+   CONTROL HOVER
+========================================= */
 
 .announcement__arrow:hover {
     color: var(--color-primary);
+
+    background: rgba(255, 255, 255, 0.06);
+
     transform: translateX(3px);
 }
 
+
 .announcement__close:hover {
-    color: #fff;
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.06);
+
     transform: rotate(90deg);
 }
 
+
+/* =========================================
+   ICONS
+========================================= */
+
 .announcement__arrow svg,
 .announcement__close svg {
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
 }
 
-@keyframes announcementFade {
+
+/* =========================================
+   FOCUS
+========================================= */
+
+.announcement__arrow:focus-visible,
+.announcement__close:focus-visible {
+    outline-color: rgba(194, 142, 46, 0.8);
+}
+
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes announcement-enter {
     from {
         opacity: 0;
-        transform: translateY(5px);
+
+        transform:
+            translateY(7px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
 }
 
-@media (max-width: 600px) {
-    .announcement__content {
-        padding-inline: 30px;
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+    .announcement__message {
+        padding-inline: 40px;
     }
 
     .announcement__text {
-        font-size: 10px;
-        text-align: center;
+        font-size: 0.65rem;
+        letter-spacing: 0.04em;
+    }
+
+    .announcement__arrow,
+    .announcement__close {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .announcement__text {
+        font-size: 0.6rem;
+    }
+
+    .announcement__message {
+        padding-inline: 32px;
+    }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .announcement__text {
+        animation: none;
+    }
+
+    .announcement__arrow,
+    .announcement__close {
+        transition: none;
     }
 }

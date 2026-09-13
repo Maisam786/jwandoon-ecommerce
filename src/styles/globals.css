@@ -1,142 +1,347 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600;1,700&display=swap");
+
+/* =========================================
+   ROOT / FONT SYSTEM
+========================================= */
 
 :root {
-    --font-body: "Inter", sans-serif;
+    --font-body: "Manrope", sans-serif;
     --font-heading: "Playfair Display", serif;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
 }
 
-body {
-    font-family: var(--font-body);
-}
 
-.heading-font {
-    font-family: var(--font-heading);
-}
+/* =========================================
+   RESET
+========================================= */
 
-/* Stylish / luxury */
-.heading-font,
-h1,
-h2,
-h3 {
-    font-family: var(--font-heading);
-}
-
-/* Professional / modern */
-body,
-button,
-input,
-select,
-textarea,
-p,
-a {
-    font-family: var(--font-body);
-}
-
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
+/* =========================================
+   HTML
+========================================= */
+
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px;
 }
+
+
+/* =========================================
+   BODY
+========================================= */
 
 body {
     min-width: 320px;
+    min-height: 100vh;
+
     background: var(--color-background);
     color: var(--color-text);
-    font-family: "Manrope", sans-serif;
+
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.6;
+
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
     text-rendering: optimizeLegibility;
+
+    overflow-x: hidden;
 }
 
-body,
+
+/* =========================================
+   TYPOGRAPHY RESET
+========================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.15;
+}
+
+p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   HEADINGS
+========================================= */
+
+h1 {
+    font-size: clamp(2.75rem, 6vw, 6rem);
+    letter-spacing: -0.045em;
+}
+
+h2 {
+    font-size: clamp(2.1rem, 4vw, 4rem);
+    letter-spacing: -0.035em;
+}
+
+h3 {
+    font-size: clamp(1.5rem, 2.5vw, 2.3rem);
+    letter-spacing: -0.025em;
+}
+
+h4 {
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+}
+
+h5 {
+    font-size: 1.125rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+
+/* =========================================
+   REUSABLE FONT CLASSES
+========================================= */
+
+.heading-font {
+    font-family: var(--font-heading);
+}
+
+.body-font {
+    font-family: var(--font-body);
+}
+
+
+/* =========================================
+   FORM ELEMENTS
+========================================= */
+
 button,
 input,
 textarea,
 select {
-    font-family: inherit;
-}
-
-button,
-a {
-    -webkit-tap-highlight-color: transparent;
+    font: inherit;
 }
 
 button {
     border: none;
     background: none;
+    color: inherit;
     cursor: pointer;
 }
+
+input,
+textarea,
+select {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+}
+
+textarea {
+    resize: vertical;
+}
+
+
+/* =========================================
+   LINKS
+========================================= */
 
 a {
     color: inherit;
     text-decoration: none;
 }
 
-img {
-    display: block;
-    max-width: 100%;
-}
+
+/* =========================================
+   LISTS
+========================================= */
 
 ul,
 ol {
     list-style: none;
 }
 
+
+/* =========================================
+   MEDIA
+========================================= */
+
+img,
+picture,
+svg,
+video,
+canvas {
+    display: block;
+    max-width: 100%;
+}
+
+img {
+    height: auto;
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+:focus-visible {
+    outline: 3px solid rgba(194, 142, 46, 0.35);
+    outline-offset: 4px;
+}
+
+button,
+a,
 input,
 textarea,
 select {
-    border: none;
-    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
+
+
+/* =========================================
+   TEXT SELECTION
+========================================= */
 
 ::selection {
     background: var(--color-primary);
-    color: #fff;
+    color: #ffffff;
 }
 
-/* ================================
+
+/* =========================================
    GLOBAL CONTAINER
-================================ */
+========================================= */
 
 .container {
     width: min(
         calc(100% - (var(--page-padding) * 2)),
         var(--container-width)
     );
+
     margin-inline: auto;
 }
 
-/* ================================
-   TYPOGRAPHY
-================================ */
 
-.heading-font {
-    font-family: "Playfair Display", serif;
+/* =========================================
+   TYPOGRAPHY UTILITIES
+========================================= */
+
+.display-text {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 6vw, 6.5rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.05em;
 }
 
-/* ================================
-   SCROLLBAR
-================================ */
-
-::-webkit-scrollbar {
-    width: 8px;
+.section-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.1rem, 4vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
 }
 
-::-webkit-scrollbar-track {
-    background: var(--color-surface);
+.section-subtitle {
+    max-width: 650px;
+
+    color: var(--color-text-secondary);
+
+    font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+    font-weight: 500;
+    line-height: 1.75;
 }
 
-::-webkit-scrollbar-thumb {
-    background: rgba(194, 142, 46, 0.6);
-    border-radius: 20px;
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+
+    color: var(--color-primary);
+
+    font-size: 0.72rem;
+    font-weight: 800;
+
+    line-height: 1.2;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary);
+
+/* =========================================
+   TEXT UTILITIES
+========================================= */
+
+.text-center {
+    text-align: center;
 }
+
+.text-left {
+    text-align: left;
+}
+
+.text-primary {
+    color: var(--color-primary);
+}
+
+.text-muted {
+    color: var(--color-text-secondary);
+}
+
+
+/* =========================================
+   SECTION SYSTEM
+========================================= */
+
+.section {
+    padding-block: clamp(4rem, 8vw, 8rem);
+}
+
+.section-header {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.section-header--center {
+    align-items: center;
+    text-align: center;
+}
+
+.section-header--center .section-subtitle {
+    margin-inline: auto;
+}
+
 
 /* =========================================
    GLOBAL BUTTON SYSTEM
@@ -145,29 +350,29 @@ select {
 .btn {
     position: relative;
 
-    min-height: 52px;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 11px;
+    gap: 10px;
 
+    min-height: 52px;
     padding: 0 24px;
 
     overflow: hidden;
 
-    color: #fff;
+    color: #ffffff;
     background: var(--color-text);
 
     border: 1px solid var(--color-text);
     border-radius: 999px;
 
-    font-family: inherit;
-    font-size: 12px;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
     font-weight: 800;
     line-height: 1;
 
-    text-decoration: none;
+    letter-spacing: 0.02em;
+    text-align: center;
     white-space: nowrap;
 
     cursor: pointer;
@@ -184,7 +389,17 @@ select {
 }
 
 
-/* Shine */
+/* Button Content */
+
+.btn > * {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* =========================================
+   BUTTON SHINE EFFECT
+========================================= */
 
 .btn::before {
     content: "";
@@ -199,30 +414,24 @@ select {
     background: linear-gradient(
         110deg,
         transparent 20%,
-        rgba(255, 255, 255, 0.22) 50%,
+        rgba(255, 255, 255, 0.2) 50%,
         transparent 80%
     );
 
     transform: skewX(-20deg);
 
-    transition: left 0.65s ease;
-
     pointer-events: none;
+
+    transition: left 0.65s ease;
 }
 
 
-/* Content stays above shine */
-
-.btn > * {
-    position: relative;
-    z-index: 1;
-}
-
-
-/* Hover */
+/* =========================================
+   BUTTON HOVER
+========================================= */
 
 .btn:hover {
-    color: #fff;
+    color: #ffffff;
 
     background: var(--color-primary);
     border-color: var(--color-primary);
@@ -230,7 +439,7 @@ select {
     transform: translateY(-3px);
 
     box-shadow:
-        0 13px 28px rgba(194, 142, 46, 0.25);
+        0 14px 30px rgba(194, 142, 46, 0.24);
 }
 
 .btn:hover::before {
@@ -238,25 +447,31 @@ select {
 }
 
 
-/* Click */
+/* =========================================
+   BUTTON ACTIVE
+========================================= */
 
 .btn:active {
     transform: translateY(-1px) scale(0.98);
 
     box-shadow:
-        0 6px 15px rgba(43, 27, 16, 0.15);
+        0 6px 15px rgba(43, 27, 16, 0.14);
 }
 
 
-/* Keyboard accessibility */
+/* =========================================
+   BUTTON FOCUS
+========================================= */
 
 .btn:focus-visible {
-    outline: 3px solid rgba(194, 142, 46, 0.25);
-    outline-offset: 3px;
+    outline: 3px solid rgba(194, 142, 46, 0.28);
+    outline-offset: 4px;
 }
 
 
-/* Arrow */
+/* =========================================
+   BUTTON ICON
+========================================= */
 
 .btn svg {
     width: 17px;
@@ -274,11 +489,12 @@ select {
 
 
 /* =========================================
-   PRIMARY
+   PRIMARY BUTTON
 ========================================= */
 
 .btn--primary {
-    color: #fff;
+    color: #ffffff;
+
     background: var(--color-primary);
     border-color: var(--color-primary);
 
@@ -296,11 +512,31 @@ select {
 
 
 /* =========================================
-   OUTLINE
+   DARK BUTTON
+========================================= */
+
+.btn--dark {
+    color: #ffffff;
+
+    background: var(--color-text);
+    border-color: var(--color-text);
+}
+
+.btn--dark:hover {
+    color: #ffffff;
+
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+
+/* =========================================
+   OUTLINE BUTTON
 ========================================= */
 
 .btn--outline {
     color: var(--color-text);
+
     background: transparent;
     border-color: var(--color-border);
 
@@ -308,25 +544,25 @@ select {
 }
 
 .btn--outline:hover {
-    color: #fff;
+    color: #ffffff;
+
     background: var(--color-text);
     border-color: var(--color-text);
 
     box-shadow:
-        0 10px 24px rgba(43, 27, 16, 0.15);
+        0 10px 24px rgba(43, 27, 16, 0.14);
 }
 
 
 /* =========================================
-   LIGHT / GLASS
+   LIGHT BUTTON
 ========================================= */
 
 .btn--light {
     color: var(--color-text);
 
     background: rgba(255, 255, 255, 0.9);
-
-    border-color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.85);
 
     backdrop-filter: blur(10px);
 
@@ -335,21 +571,22 @@ select {
 }
 
 .btn--light:hover {
-    color: #fff;
+    color: #ffffff;
+
     background: var(--color-primary);
     border-color: var(--color-primary);
 }
 
 
 /* =========================================
-   SMALL BUTTON
+   BUTTON SIZES
 ========================================= */
 
 .btn--sm {
     min-height: 44px;
-    padding: 0 19px;
+    padding-inline: 19px;
 
-    font-size: 11px;
+    font-size: 0.7rem;
 }
 
 .btn--sm svg {
@@ -358,15 +595,132 @@ select {
 }
 
 
+.btn--lg {
+    min-height: 58px;
+    padding-inline: 30px;
+
+    font-size: 0.82rem;
+}
+
+
 /* =========================================
-   LARGE BUTTON
+   ICON BUTTON
 ========================================= */
 
-.btn--lg {
-    min-height: 56px;
-    padding: 0 28px;
+.btn-icon {
+    width: 48px;
+    height: 48px;
 
-    font-size: 13px;
+    display: inline-grid;
+    place-items: center;
+
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+
+    color: var(--color-text);
+    background: transparent;
+
+    transition:
+        color 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.btn-icon:hover {
+    color: #ffffff;
+
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================
+   GLOBAL TRANSITION UTILITIES
+========================================= */
+
+.hover-lift {
+    transition:
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.35s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-6px);
+}
+
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(194, 142, 46, 0.6);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}
+
+
+/* Firefox */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(194, 142, 46, 0.65)
+        var(--color-surface);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+    html {
+        scroll-padding-top: 80px;
+    }
+
+    .section {
+        padding-block: 4.5rem;
+    }
+
+    .section-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .btn--lg {
+        min-height: 54px;
+        padding-inline: 24px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    body {
+        font-size: 15px;
+    }
+
+    .btn {
+        min-height: 50px;
+        padding-inline: 21px;
+    }
+
+    .display-text {
+        letter-spacing: -0.04em;
+    }
 }
 
 
@@ -375,9 +729,18 @@ select {
 ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-    .btn,
-    .btn::before,
-    .btn svg {
-        transition: none;
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+
+        scroll-behavior: auto !important;
     }
 }

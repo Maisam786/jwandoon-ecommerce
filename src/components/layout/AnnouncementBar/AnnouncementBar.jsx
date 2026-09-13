@@ -5,8 +5,8 @@ import "./AnnouncementBar.css";
 
 const announcements = [
     "Welcome to Jwandoon — Shop smarter, live better",
-    "Mega Sale — Up to 40% Off",
-    "New Arrivals Are Here — Explore Now",
+    "Mega Sale — Enjoy up to 40% off selected items",
+    "Fresh arrivals are here — Discover something new",
 ];
 
 export default function AnnouncementBar() {
@@ -15,40 +15,57 @@ export default function AnnouncementBar() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrent((prev) => (prev + 1) % announcements.length);
+            setCurrent((previous) =>
+                (previous + 1) % announcements.length
+            );
         }, 5000);
 
         return () => clearInterval(interval);
     }, []);
 
     const nextAnnouncement = () => {
-        setCurrent((prev) => (prev + 1) % announcements.length);
+        setCurrent((previous) =>
+            (previous + 1) % announcements.length
+        );
     };
 
     if (!visible) return null;
 
     return (
-        <div className="announcement">
+        <div
+            className="announcement"
+            role="region"
+            aria-label="Store announcements"
+        >
             <div className="announcement__content">
 
                 <button
                     type="button"
                     className="announcement__arrow"
                     onClick={nextAnnouncement}
-                    aria-label="Next announcement"
+                    aria-label="Show next announcement"
                 >
                     <FiChevronRight />
                 </button>
 
-                <p key={current} className="announcement__text">
-                    {announcements[current]}
-                </p>
+                <div
+                    className="announcement__message"
+                    aria-live="polite"
+                    aria-atomic="true"
+                >
+                    <p
+                        key={current}
+                        className="announcement__text"
+                    >
+                        {announcements[current]}
+                    </p>
+                </div>
 
                 <button
                     type="button"
                     className="announcement__close"
                     onClick={() => setVisible(false)}
-                    aria-label="Close announcement"
+                    aria-label="Close announcement bar"
                 >
                     <FiX />
                 </button>
