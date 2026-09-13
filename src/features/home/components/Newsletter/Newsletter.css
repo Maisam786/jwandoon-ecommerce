@@ -168,6 +168,7 @@
 }
 
 .newsletter__benefit h3 {
+    color: var(--color-text);
     margin: 2px 0 7px;
     font-size: 14px;
     font-weight: 700;
