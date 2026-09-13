@@ -7,6 +7,10 @@ import HeroBenefits from "./features/home/components/HeroBenefits/HeroBenefits";
 import CategoryShowcase from "./features/home/components/CategoryShowcase/CategoryShowcase";
 import FeaturedProducts from "./features/home/components/FeaturedProducts/FeaturedProducts";
 import PromoBanner from "./features/home/components/PromoBanner/PromoBanner";
+import NewArrivals from "./features/home/components/NewArrivals/NewArrivals";
+import GrandOpeningBanner from "./features/home/components/GrandOpeningBanner/GrandOpeningBanner";
+import DealsSection from "./features/home/components/DealsSection/DealsSection";
+import Newsletter from "./features/home/components/Newsletter/Newsletter";
 
 function App() {
     return (
@@ -23,6 +27,10 @@ function App() {
                 <CategoryShowcase />
                 <FeaturedProducts />
                 <PromoBanner />
+                <NewArrivals />
+                <GrandOpeningBanner />
+                <DealsSection />
+                <Newsletter />
             </main>
         </div>
     );
