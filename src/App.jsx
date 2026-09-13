@@ -23,7 +23,7 @@ function App() {
         <Navigation />
       </header>
 
-      <main>
+      <main className="page-content">
         <ShowcaseHero />
         <HeroBenefits />
         <CategoryShowcase />

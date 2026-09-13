@@ -6,13 +6,26 @@ import {
   FiX,
   FiChevronDown,
 } from "react-icons/fi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import logo from "../../../assets/logo/jwandoon-logo.png";
 
 import "./Header.css";
 
 export default function Header() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
 
@@ -22,7 +35,7 @@ export default function Header() {
   };
 
   return (
-    <header className="main-header">
+    <header className={`main-header ${scrolled ? "main-header--scrolled" : ""}`}>
       <div className="container main-header__container">
         <a href="/" className="main-header__logo" onClick={closeMenu}>
           <img src={logo} alt="Jwandoon" />
@@ -86,9 +99,7 @@ export default function Header() {
               aria-expanded={shopOpen}
             >
               <span>Shop</span>
-              <FiChevronDown
-                className={shopOpen ? "is-open" : ""}
-              />
+              <FiChevronDown className={shopOpen ? "is-open" : ""} />
             </button>
 
             <div

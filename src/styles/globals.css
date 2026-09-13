@@ -60,6 +60,10 @@ body {
     overflow-x: hidden;
 }
 
+.page-content {
+    padding-top: 162px;
+}
+
 
 /* =========================================
    TYPOGRAPHY RESET
@@ -704,6 +708,10 @@ select {
     .btn--lg {
         min-height: 54px;
         padding-inline: 24px;
+    }
+
+    .page-content {
+        padding-top: 72px;
     }
 }
 
