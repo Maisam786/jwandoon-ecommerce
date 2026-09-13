@@ -12,28 +12,34 @@ import GrandOpeningBanner from "./features/home/components/GrandOpeningBanner/Gr
 import DealsSection from "./features/home/components/DealsSection/DealsSection";
 import Newsletter from "./features/home/components/Newsletter/Newsletter";
 
-function App() {
-    return (
-        <div className="app">
-            <header>
-                <AnnouncementBar />
-                <Header />
-                <Navigation />
-            </header>
+import Footer from "./components/layout/Footer/Footer";
 
-            <main>
-                <ShowcaseHero />
-                <HeroBenefits />
-                <CategoryShowcase />
-                <FeaturedProducts />
-                <PromoBanner />
-                <NewArrivals />
-                <GrandOpeningBanner />
-                <DealsSection />
-                <Newsletter />
-            </main>
-        </div>
-    );
+function App() {
+  return (
+    <div className="app">
+      <header>
+        <AnnouncementBar />
+        <Header />
+        <Navigation />
+      </header>
+
+      <main>
+        <ShowcaseHero />
+        <HeroBenefits />
+        <CategoryShowcase />
+        <FeaturedProducts />
+        <PromoBanner />
+        <NewArrivals />
+        <GrandOpeningBanner />
+        <DealsSection />
+        <Newsletter />
+      </main>
+
+      <Footer>
+        <Footer />
+      </Footer>
+    </div>
+  );
 }
 
 export default App;
