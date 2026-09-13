@@ -112,7 +112,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 35px;
+    /* padding: 35px; */
 }
 
 .product-card__image img {
@@ -329,9 +329,9 @@
         border-radius: 14px;
     }
 
-    .product-card__image > a {
+    /* .product-card__image > a {
         padding: 22px;
-    }
+    } */
 
     .product-card__badge {
         top: 9px;

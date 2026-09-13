@@ -16,7 +16,7 @@ const products = [
         oldPrice: 8999,
         rating: 4.8,
         reviews: 124,
-        image: "/images/products/headphones.png",
+        image: "/images/products/headphones.webp",
         badge: "Best Seller",
     },
     {
@@ -27,7 +27,7 @@ const products = [
         oldPrice: 6999,
         rating: 4.7,
         reviews: 98,
-        image: "/images/products/smart-watch.png",
+        image: "/images/products/smart-watch.webp",
         badge: "Popular",
     },
     {
@@ -38,7 +38,7 @@ const products = [
         oldPrice: 3999,
         rating: 4.6,
         reviews: 86,
-        image: "/images/products/earbuds.png",
+        image: "/images/products/earbuds.webp",
         badge: "Sale",
     },
     {
@@ -49,7 +49,7 @@ const products = [
         oldPrice: 4999,
         rating: 4.8,
         reviews: 73,
-        image: "/images/products/speaker.png",
+        image: "/images/products/speaker.webp",
         badge: "Trending",
     },
 ];
