@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="footer-newsletter-content">
           <div>
             <span className="footer-eyebrow">STAY CONNECTED</span>
-            <h2>Get the latest from Jwandoon</h2>
+            <h2>Get the latest from <em>Jwandoon</em></h2>
             <p>
               Subscribe for new arrivals, exclusive offers and special updates.
             </p>

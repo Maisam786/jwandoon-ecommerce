@@ -20,6 +20,11 @@
     gap: 50px;
 }
 
+.footer-newsletter-content em{
+    color: var(--color-primary);
+    font-size: 160%;
+}
+
 .footer-eyebrow {
     font-size: 12px;
     font-weight: 600;
