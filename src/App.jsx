@@ -15,46 +15,48 @@ import GrandOpeningBanner from "./features/home/components/GrandOpeningBanner/Gr
 import DealsSection from "./features/home/components/DealsSection/DealsSection";
 import Newsletter from "./features/home/components/Newsletter/Newsletter";
 
+import ProductDetails from "./features/product/ProductDetails";
+
 import Shop from "./features/shop/Shop";
 import About from "./features/about/About";
 
 function Home() {
-    return (
-        <main className="page-content">
-            <ShowcaseHero />
-            <HeroBenefits />
-            <CategoryShowcase />
-            <FeaturedProducts />
-            <PromoBanner />
-            <NewArrivals />
-            <GrandOpeningBanner />
-            <DealsSection />
-            <Newsletter />
-        </main>
-    );
+  return (
+    <main className="page-content">
+      <ShowcaseHero />
+      <HeroBenefits />
+      <CategoryShowcase />
+      <FeaturedProducts />
+      <PromoBanner />
+      <NewArrivals />
+      <GrandOpeningBanner />
+      <DealsSection />
+      <Newsletter />
+    </main>
+  );
 }
 
 function App() {
-    return (
-        <BrowserRouter>
-            <div className="app">
-                <header>
-                    <AnnouncementBar />
-                    <Header />
-                    <Navigation />
-                </header>
+  return (
+    <BrowserRouter>
+      <div className="app">
+        <header>
+          <AnnouncementBar />
+          <Header />
+          <Navigation />
+        </header>
 
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/shop" element={<Shop />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
 
-                    <Route path="/about" element={<About />} />
-                </Routes>
-
-                <Footer />
-            </div>
-        </BrowserRouter>
-    );
+        <Footer />
+      </div>
+    </BrowserRouter>
+  );
 }
 
 export default App;
