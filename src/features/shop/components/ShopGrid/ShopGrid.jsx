@@ -4,7 +4,6 @@ import "./ShopGrid.css";
 
 export default function ShopGrid({
     products = [],
-    view = "grid",
 }) {
     if (products.length === 0) {
         return (
@@ -19,17 +18,12 @@ export default function ShopGrid({
     }
 
     return (
-        <div
-            className={
-                view === "list"
-                    ? "shop-grid shop-grid--list"
-                    : "shop-grid"
-            }
-        >
+        <div className="shop-grid">
             {products.map((product) => (
                 <ProductCard
                     key={product.id}
                     product={product}
+                    showQuickView={false}
                 />
             ))}
         </div>

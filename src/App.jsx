@@ -16,6 +16,7 @@ import DealsSection from "./features/home/components/DealsSection/DealsSection";
 import Newsletter from "./features/home/components/Newsletter/Newsletter";
 
 import Shop from "./features/shop/Shop";
+import About from "./features/about/About";
 
 function Home() {
     return (
@@ -46,6 +47,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/shop" element={<Shop />} />
+
+                    <Route path="/about" element={<About />} />
                 </Routes>
 
                 <Footer />

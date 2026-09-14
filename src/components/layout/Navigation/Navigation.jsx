@@ -39,7 +39,11 @@ export default function Navigation() {
     const [shopOpen, setShopOpen] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
 
+    const [activeSection, setActiveSection] =
+        useState(null);
+
     /* NAVIGATION SCROLL BEHAVIOR */
+
     useEffect(() => {
         let lastScrollY = window.scrollY;
 
@@ -73,7 +77,118 @@ export default function Navigation() {
         };
     }, []);
 
+    /* ACTIVE HOME SECTIONS */
+
+    useEffect(() => {
+        if (location.pathname !== "/") {
+            setActiveSection(null);
+            return;
+        }
+
+        const sections = [
+            {
+                id: "new-arrivals",
+                hash: "#new-arrivals",
+            },
+            {
+                id: "deals",
+                hash: "#deals",
+            },
+        ];
+
+        const observers = [];
+
+        sections.forEach(({ id, hash }) => {
+            const section =
+                document.getElementById(id);
+
+            if (!section) return;
+
+            const observer =
+                new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                setActiveSection(hash);
+                            }
+                        });
+                    },
+                    {
+                        root: null,
+                        rootMargin:
+                            "-35% 0px -50% 0px",
+                        threshold: 0,
+                    }
+                );
+
+            observer.observe(section);
+            observers.push(observer);
+        });
+
+        const handleScroll = () => {
+            if (window.scrollY < 250) {
+                setActiveSection(null);
+                return;
+            }
+
+            const newArrivals =
+                document.getElementById(
+                    "new-arrivals"
+                );
+
+            const deals =
+                document.getElementById("deals");
+
+            if (!newArrivals || !deals) return;
+
+            const navigationOffset = 140;
+            const currentPosition =
+                window.scrollY + navigationOffset;
+
+            const newArrivalsTop =
+                newArrivals.offsetTop;
+
+            const dealsTop =
+                deals.offsetTop;
+
+            if (
+                currentPosition >= newArrivalsTop &&
+                currentPosition < dealsTop
+            ) {
+                setActiveSection(
+                    "#new-arrivals"
+                );
+            } else if (
+                currentPosition >= dealsTop
+            ) {
+                setActiveSection("#deals");
+            } else {
+                setActiveSection(null);
+            }
+        };
+
+        window.addEventListener(
+            "scroll",
+            handleScroll,
+            { passive: true }
+        );
+
+        handleScroll();
+
+        return () => {
+            observers.forEach((observer) =>
+                observer.disconnect()
+            );
+
+            window.removeEventListener(
+                "scroll",
+                handleScroll
+            );
+        };
+    }, [location.pathname]);
+
     /* SCROLL TO HASHED SECTION */
+
     useEffect(() => {
         if (!location.hash) return;
 
@@ -111,10 +226,13 @@ export default function Navigation() {
     };
 
     /* HOME */
+
     const handleHomeClick = (event) => {
         event.preventDefault();
 
         closeMobileMenu();
+
+        setActiveSection(null);
 
         if (location.pathname === "/") {
             window.scrollTo({
@@ -135,6 +253,7 @@ export default function Navigation() {
     };
 
     /* DEALS / NEW ARRIVALS */
+
     const handleSectionClick = (
         event,
         hash
@@ -143,15 +262,17 @@ export default function Navigation() {
 
         closeMobileMenu();
 
+        setActiveSection(hash);
+
         navigate({
             pathname: "/",
-            hash: hash,
+            hash,
         });
     };
 
     const isHome =
         location.pathname === "/" &&
-        !location.hash;
+        activeSection === null;
 
     const isShop =
         location.pathname === "/shop";
@@ -222,13 +343,13 @@ export default function Navigation() {
                         <MegaMenu variant="desktop" />
                     </div>
 
-                    {/* OTHER LINKS */}
+                    {/* DEALS / NEW ARRIVALS / OTHER LINKS */}
 
                     {links.map((link) => {
                         const active = link.hash
-                            ? location.pathname === "/" &&
-                              location.hash === link.hash
-                            : location.pathname === link.href;
+                            ? activeSection === link.hash
+                            : location.pathname ===
+                              link.href;
 
                         if (link.hash) {
                             return (
@@ -334,46 +455,62 @@ export default function Navigation() {
                     </div>
                 )}
 
-                {links.map((link) => {
-                    const active = link.hash
-                        ? location.pathname === "/" &&
-                          location.hash === link.hash
-                        : location.pathname === link.href;
+                {/* DEALS */}
 
-                    if (link.hash) {
-                        return (
-                            <a
-                                key={link.label}
-                                href={`/${link.hash}`}
-                                className={`navigation__mobile-link ${
-                                    active
-                                        ? "navigation__mobile-link--active"
-                                        : ""
-                                }`}
-                                onClick={(event) =>
-                                    handleSectionClick(
-                                        event,
-                                        link.hash
-                                    )
-                                }
-                            >
-                                {link.hot && (
-                                    <span className="navigation__hot">
-                                        HOT
-                                    </span>
-                                )}
-
-                                {link.label}
-                            </a>
-                        );
+                <a
+                    href="/#deals"
+                    className={`navigation__mobile-link ${
+                        activeSection === "#deals"
+                            ? "navigation__mobile-link--active"
+                            : ""
+                    }`}
+                    onClick={(event) =>
+                        handleSectionClick(
+                            event,
+                            "#deals"
+                        )
                     }
+                >
+                    <span className="navigation__mobile-hot-wrapper">
+                        Deals
 
-                    return (
+                        <span className="navigation__hot">
+                            HOT
+                        </span>
+                    </span>
+                </a>
+
+                {/* NEW ARRIVALS */}
+
+                <a
+                    href="/#new-arrivals"
+                    className={`navigation__mobile-link ${
+                        activeSection ===
+                        "#new-arrivals"
+                            ? "navigation__mobile-link--active"
+                            : ""
+                    }`}
+                    onClick={(event) =>
+                        handleSectionClick(
+                            event,
+                            "#new-arrivals"
+                        )
+                    }
+                >
+                    New Arrivals
+                </a>
+
+                {/* ABOUT / CONTACT */}
+
+                {links
+                    .filter((link) => !link.hash)
+                    .map((link) => (
                         <Link
                             key={link.label}
                             to={link.href}
                             className={`navigation__mobile-link ${
-                                active
+                                location.pathname ===
+                                link.href
                                     ? "navigation__mobile-link--active"
                                     : ""
                             }`}
@@ -381,8 +518,7 @@ export default function Navigation() {
                         >
                             {link.label}
                         </Link>
-                    );
-                })}
+                    ))}
             </div>
         </div>
     );

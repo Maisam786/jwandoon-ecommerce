@@ -7,39 +7,102 @@ import {
   FiChevronDown,
 } from "react-icons/fi";
 import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import logo from "../../../assets/logo/jwandoon-logo.png";
 
 import "./Header.css";
 
 export default function Header() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [shopOpen, setShopOpen] = useState(false);
 
   const closeMenu = () => {
     setMobileOpen(false);
     setShopOpen(false);
   };
 
+  const handleHomeClick = (event) => {
+    event.preventDefault();
+
+    closeMenu();
+
+    if (location.pathname === "/") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      if (location.hash) {
+        navigate("/", {
+          replace: true,
+        });
+      }
+
+      return;
+    }
+
+    navigate("/");
+  };
+
+  const handleSectionClick = (event, hash) => {
+    event.preventDefault();
+
+    closeMenu();
+
+    navigate({
+      pathname: "/",
+      hash,
+    });
+  };
+
+  const isHome =
+    location.pathname === "/" &&
+    !location.hash;
+
+  const isShop =
+    location.pathname === "/shop";
+
+  const isDeals =
+    location.pathname === "/" &&
+    location.hash === "#deals";
+
+  const isNewArrivals =
+    location.pathname === "/" &&
+    location.hash === "#new-arrivals";
+
   return (
-    <header className={`main-header ${scrolled ? "main-header--scrolled" : ""}`}>
+    <header
+      className={`main-header ${
+        scrolled ? "main-header--scrolled" : ""
+      }`}
+    >
       <div className="container main-header__container">
-        <a href="/" className="main-header__logo" onClick={closeMenu}>
+        <Link
+          to="/"
+          className="main-header__logo"
+          onClick={handleHomeClick}
+        >
           <img src={logo} alt="Jwandoon" />
-        </a>
+        </Link>
 
         <div className="main-header__search">
           <FiSearch />
@@ -52,94 +115,229 @@ export default function Header() {
         </div>
 
         <div className="main-header__actions">
-          <button className="header-action" aria-label="Wishlist">
+          <button
+            type="button"
+            className="header-action"
+            aria-label="Wishlist"
+          >
             <FiHeart />
-            <span className="header-action__label">Wishlist</span>
+            <span className="header-action__label">
+              Wishlist
+            </span>
           </button>
 
           <button
+            type="button"
             className="header-action header-action--cart"
             aria-label="Shopping cart"
           >
             <FiShoppingBag />
 
-            <span className="header-action__label">Cart</span>
+            <span className="header-action__label">
+              Cart
+            </span>
 
-            <span className="header-action__count">0</span>
+            <span className="header-action__count">
+              0
+            </span>
           </button>
 
           <button
             type="button"
             className="header__mobile-menu"
-            aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
+            aria-label={
+              mobileOpen
+                ? "Close navigation"
+                : "Open navigation"
+            }
             aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((prev) => !prev)}
+            onClick={() =>
+              setMobileOpen((prev) => !prev)
+            }
           >
             {mobileOpen ? <FiX /> : <FiMenu />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* MOBILE NAVIGATION */}
+
       <div
         className={`header__mobile-nav ${
-          mobileOpen ? "header__mobile-nav--open" : ""
+          mobileOpen
+            ? "header__mobile-nav--open"
+            : ""
         }`}
       >
         <div className="header__mobile-nav-inner">
-          <a href="/" onClick={closeMenu}>
+          {/* HOME */}
+
+          <Link
+            to="/"
+            className={
+              isHome
+                ? "header__mobile-link header__mobile-link--active"
+                : "header__mobile-link"
+            }
+            onClick={handleHomeClick}
+          >
             Home
-          </a>
+          </Link>
+
+          {/* SHOP */}
 
           <div className="header__mobile-shop">
+            <Link
+              to="/shop"
+              className={
+                isShop
+                  ? "header__mobile-link header__mobile-link--active"
+                  : "header__mobile-link"
+              }
+              onClick={closeMenu}
+            >
+              Shop
+            </Link>
+
             <button
               type="button"
               className="header__mobile-shop-button"
-              onClick={() => setShopOpen((prev) => !prev)}
+              onClick={() =>
+                setShopOpen((prev) => !prev)
+              }
               aria-expanded={shopOpen}
             >
-              <span>Shop</span>
-              <FiChevronDown className={shopOpen ? "is-open" : ""} />
+              <span>Shop Categories</span>
+
+              <FiChevronDown
+                className={
+                  shopOpen ? "is-open" : ""
+                }
+              />
             </button>
 
             <div
               className={`header__mobile-shop-menu ${
-                shopOpen ? "header__mobile-shop-menu--open" : ""
+                shopOpen
+                  ? "header__mobile-shop-menu--open"
+                  : ""
               }`}
             >
-              <a href="/shop" onClick={closeMenu}>
+              <Link
+                to="/shop"
+                onClick={closeMenu}
+              >
                 All Products
-              </a>
+              </Link>
 
-              <a href="/shop?category=electronics" onClick={closeMenu}>
+              <Link
+                to="/shop?category=electronics"
+                onClick={closeMenu}
+              >
                 Electronics
-              </a>
+              </Link>
 
-              <a href="/shop?category=mobile-accessories" onClick={closeMenu}>
+              <Link
+                to="/shop?category=mobile-accessories"
+                onClick={closeMenu}
+              >
                 Mobile Accessories
-              </a>
+              </Link>
 
-              <a href="/shop?category=smart-watches" onClick={closeMenu}>
+              <Link
+                to="/shop?category=smart-watches"
+                onClick={closeMenu}
+              >
                 Smart Watches
-              </a>
+              </Link>
 
-              <a href="/shop?category=audio" onClick={closeMenu}>
+              <Link
+                to="/shop?category=audio-headphones"
+                onClick={closeMenu}
+              >
                 Audio & Headphones
-              </a>
+              </Link>
 
-              <a href="/shop?category=home-living" onClick={closeMenu}>
+              <Link
+                to="/shop?category=home-living"
+                onClick={closeMenu}
+              >
                 Home & Living
-              </a>
+              </Link>
             </div>
           </div>
 
-          <a href="/about" onClick={closeMenu}>
-            About
+          {/* DEALS */}
+
+          <a
+            href="/#deals"
+            className={
+              isDeals
+                ? "header__mobile-link header__mobile-link--active"
+                : "header__mobile-link"
+            }
+            onClick={(event) =>
+              handleSectionClick(
+                event,
+                "#deals"
+              )
+            }
+          >
+            <span className="header__mobile-link-content">
+              Deals
+
+              <span className="header__mobile-hot">
+                HOT
+              </span>
+            </span>
           </a>
 
-          <a href="/contact" onClick={closeMenu}>
-            Contact
+          {/* NEW ARRIVALS */}
+
+          <a
+            href="/#new-arrivals"
+            className={
+              isNewArrivals
+                ? "header__mobile-link header__mobile-link--active"
+                : "header__mobile-link"
+            }
+            onClick={(event) =>
+              handleSectionClick(
+                event,
+                "#new-arrivals"
+              )
+            }
+          >
+            New Arrivals
           </a>
+
+          {/* ABOUT */}
+
+          <Link
+            to="/about"
+            className={
+              location.pathname === "/about"
+                ? "header__mobile-link header__mobile-link--active"
+                : "header__mobile-link"
+            }
+            onClick={closeMenu}
+          >
+            About
+          </Link>
+
+          {/* CONTACT */}
+
+          <Link
+            to="/contact"
+            className={
+              location.pathname === "/contact"
+                ? "header__mobile-link header__mobile-link--active"
+                : "header__mobile-link"
+            }
+            onClick={closeMenu}
+          >
+            Contact
+          </Link>
         </div>
       </div>
     </header>

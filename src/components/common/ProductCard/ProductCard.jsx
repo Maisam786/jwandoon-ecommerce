@@ -7,7 +7,10 @@ import {
 
 import "./ProductCard.css";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({
+    product,
+    showQuickView = true,
+}) {
     return (
         <article className="product-card">
             <div className="product-card__image">
@@ -28,13 +31,15 @@ export default function ProductCard({ product }) {
                         <FiHeart />
                     </button>
 
-                    <button
-                        type="button"
-                        className="product-card__action"
-                        aria-label={`Quick view ${product.name}`}
-                    >
-                        <FiEye />
-                    </button>
+                    {showQuickView && (
+                        <button
+                            type="button"
+                            className="product-card__action"
+                            aria-label={`Quick view ${product.name}`}
+                        >
+                            <FiEye />
+                        </button>
+                    )}
                 </div>
 
                 <a

@@ -1,31 +1,18 @@
-import {
-    FiGrid,
-    FiList,
-} from "react-icons/fi";
-
 import "./ShopToolbar.css";
 
 export default function ShopToolbar({
     total = 0,
     sortBy = "featured",
     setSortBy,
-    view = "grid",
-    setView,
 }) {
     return (
         <div className="shop-toolbar">
             <div className="shop-toolbar__result">
-                <span>
-                    Showing
-                </span>
+                <span>Showing</span>
 
-                <strong>
-                    {total}
-                </strong>
+                <strong>{total}</strong>
 
-                <span>
-                    products
-                </span>
+                <span>products</span>
             </div>
 
             <div className="shop-toolbar__controls">
@@ -61,34 +48,6 @@ export default function ShopToolbar({
                             Highest Rated
                         </option>
                     </select>
-                </div>
-
-                <div className="shop-toolbar__view">
-                    <button
-                        type="button"
-                        className={
-                            view === "grid"
-                                ? "shop-toolbar__view-button shop-toolbar__view-button--active"
-                                : "shop-toolbar__view-button"
-                        }
-                        onClick={() => setView("grid")}
-                        aria-label="Grid view"
-                    >
-                        <FiGrid />
-                    </button>
-
-                    <button
-                        type="button"
-                        className={
-                            view === "list"
-                                ? "shop-toolbar__view-button shop-toolbar__view-button--active"
-                                : "shop-toolbar__view-button"
-                        }
-                        onClick={() => setView("list")}
-                        aria-label="List view"
-                    >
-                        <FiList />
-                    </button>
                 </div>
             </div>
         </div>

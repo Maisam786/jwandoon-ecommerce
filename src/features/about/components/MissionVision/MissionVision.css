@@ -1,0 +1,193 @@
+.mission-vision {
+    padding: 115px 0;
+    background: var(--color-background);
+}
+
+.mission-vision__intro {
+    max-width: 700px;
+    margin-bottom: 60px;
+}
+
+.mission-vision__intro h2 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: clamp(40px, 4.5vw, 58px);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+}
+
+.mission-vision__intro h2 em {
+    color: var(--color-primary);
+    font-style: italic;
+}
+
+.mission-vision__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.mission-vision__card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 65px minmax(0, 1fr);
+    gap: 30px;
+    min-height: 300px;
+    padding: 38px;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    transition:
+        transform 300ms ease,
+        box-shadow 300ms ease,
+        border-color 300ms ease;
+}
+
+.mission-vision__card::before {
+    content: "";
+    position: absolute;
+    right: -100px;
+    bottom: -120px;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: rgba(194, 142, 46, 0.055);
+    transition: transform 450ms ease;
+}
+
+.mission-vision__card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(194, 142, 46, 0.3);
+    box-shadow: 0 20px 45px rgba(43, 27, 16, 0.08);
+}
+
+.mission-vision__card:hover::before {
+    transform: scale(1.15);
+}
+
+.mission-vision__icon {
+    position: relative;
+    z-index: 2;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    color: var(--color-primary);
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+}
+
+.mission-vision__icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.mission-vision__content {
+    position: relative;
+    z-index: 2;
+}
+
+.mission-vision__content > span {
+    display: block;
+    margin-bottom: 13px;
+    color: var(--color-primary);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+.mission-vision__content h3 {
+    max-width: 430px;
+    margin: 0;
+    color: var(--color-text);
+    font-family: "Playfair Display", serif;
+    font-size: 27px;
+    line-height: 1.2;
+}
+
+.mission-vision__content p {
+    max-width: 460px;
+    margin: 18px 0 0;
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+.mission-vision__statement {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 65px;
+    padding: 27px 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.mission-vision__statement > span {
+    color: var(--color-text-muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+}
+
+.mission-vision__statement p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.mission-vision__statement strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 800px) {
+    .mission-vision {
+        padding: 80px 0;
+    }
+
+    .mission-vision__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mission-vision__statement {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 13px;
+        margin-top: 45px;
+    }
+}
+
+@media (max-width: 520px) {
+    .mission-vision__intro {
+        margin-bottom: 40px;
+    }
+
+    .mission-vision__card {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        min-height: auto;
+        padding: 27px;
+    }
+
+    .mission-vision__content h3 {
+        font-size: 23px;
+    }
+
+    .mission-vision__statement p {
+        font-size: 17px;
+        line-height: 1.5;
+    }
+}

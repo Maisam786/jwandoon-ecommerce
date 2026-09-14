@@ -163,6 +163,12 @@
     display: none;
 }
 
+.navigation__mobile-hot-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
 /* =========================================
    TABLET
 ========================================= */

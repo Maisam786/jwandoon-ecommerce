@@ -80,13 +80,13 @@ export default function ShowcaseHero() {
           </p>
 
           <div className="showcase-hero__buttons">
-            <a href={slide.link} className="btn btn--primary">
-              {slide.button}
+            <a href="/shop" className="btn btn--primary">
+              Shop Now
               <FiArrowRight />
             </a>
 
             <a
-              href="/deals"
+              href="/shop?collection=deals"
               className="btn btn--outline showcase-hero__secondary"
             >
               Explore Deals
