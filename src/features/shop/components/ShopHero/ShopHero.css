@@ -1,0 +1,122 @@
+.shop-hero {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--color-text);
+    color: #fff;
+}
+
+.shop-hero__background {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(18, 18, 18, 0.92) 0%,
+            rgba(18, 18, 18, 0.72) 42%,
+            rgba(18, 18, 18, 0.38) 100%
+        ),
+        url("/images/shop/shop-hero.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.shop-hero__background::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.12),
+            rgba(0, 0, 0, 0.2)
+        );
+}
+
+.shop-hero .container {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 40px, var(--container-width));
+    margin: 0 auto;
+}
+
+.shop-hero__content {
+    max-width: 650px;
+    padding: 80px 0;
+}
+
+.shop-hero__eyebrow {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: #d6a443;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.shop-hero h1 {
+    color: #fff;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(48px, 6vw, 76px);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+}
+
+.shop-hero h1 span {
+    color: #d6a443;
+    font-style: italic;
+}
+
+.shop-hero__content p {
+    max-width: 500px;
+    margin-top: 22px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.shop-hero__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 11px;
+}
+
+.shop-hero__breadcrumb strong {
+    color: #d6a443;
+    font-weight: 700;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .shop-hero {
+        min-height: 360px;
+    }
+
+    .shop-hero .container {
+        width: min(100% - 28px, var(--container-width));
+    }
+
+    .shop-hero__content {
+        padding: 60px 0;
+    }
+
+    .shop-hero h1 {
+        font-size: 48px;
+    }
+
+    .shop-hero__content p {
+        font-size: 13px;
+    }
+
+    .shop-hero__background {
+        background-position: 65% center;
+    }
+}

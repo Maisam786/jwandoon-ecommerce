@@ -88,6 +88,13 @@
     line-height: 1.7;
 }
 
+.grand-opening__text strong {
+    display: block;
+    margin-top: 8px;
+    color: #e1b75c;
+    font-weight: 700;
+}
+
 .grand-opening__button {
     display: inline-flex;
     align-items: center;

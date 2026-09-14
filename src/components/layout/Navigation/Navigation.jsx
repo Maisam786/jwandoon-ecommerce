@@ -1,185 +1,389 @@
 import { useEffect, useState } from "react";
-import { FiChevronDown, FiMenu, FiX } from "react-icons/fi";
+import { FiChevronDown } from "react-icons/fi";
+import {
+    Link,
+    useLocation,
+    useNavigate,
+} from "react-router-dom";
 
 import MegaMenu from "../MegaMenu/MegaMenu";
 
 import "./Navigation.css";
 
 const links = [
-  {
-    label: "Home",
-    href: "/",
-    active: true,
-  },
-  {
-    label: "Deals",
-    href: "/deals",
-    hot: true,
-  },
-  {
-    label: "New Arrivals",
-    href: "/new-arrivals",
-  },
-  {
-    label: "About Us",
-    href: "/about",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-  },
+    {
+        label: "Deals",
+        hash: "#deals",
+        hot: true,
+    },
+    {
+        label: "New Arrivals",
+        hash: "#new-arrivals",
+    },
+    {
+        label: "About Us",
+        href: "/about",
+    },
+    {
+        label: "Contact",
+        href: "/contact",
+    },
 ];
 
 export default function Navigation() {
-  const [navVisible, setNavVisible] = useState(true);
-  const [scrolled, setScrolled] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
+    const [navVisible, setNavVisible] = useState(true);
+    const [scrolled, setScrolled] = useState(false);
+    const [shopOpen, setShopOpen] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+    /* NAVIGATION SCROLL BEHAVIOR */
+    useEffect(() => {
+        let lastScrollY = window.scrollY;
 
-      if (currentScrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
 
-      if (currentScrollY <= 20) {
-        setNavVisible(true);
-      } else if (currentScrollY > lastScrollY) {
-        setNavVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        setNavVisible(true);
-      }
+            setScrolled(currentScrollY > 10);
 
-      lastScrollY = currentScrollY;
+            if (currentScrollY <= 20) {
+                setNavVisible(true);
+            } else if (currentScrollY > lastScrollY) {
+                setNavVisible(false);
+            } else {
+                setNavVisible(true);
+            }
+
+            lastScrollY = currentScrollY;
+        };
+
+        window.addEventListener(
+            "scroll",
+            handleScroll,
+            { passive: true }
+        );
+
+        return () => {
+            window.removeEventListener(
+                "scroll",
+                handleScroll
+            );
+        };
+    }, []);
+
+    /* SCROLL TO HASHED SECTION */
+    useEffect(() => {
+        if (!location.hash) return;
+
+        const sectionId =
+            location.hash.substring(1);
+
+        const timer = setTimeout(() => {
+            const section =
+                document.getElementById(sectionId);
+
+            if (!section) return;
+
+            const navigationOffset = 120;
+
+            const position =
+                section.getBoundingClientRect().top +
+                window.scrollY -
+                navigationOffset;
+
+            window.scrollTo({
+                top: position,
+                behavior: "smooth",
+            });
+        }, 100);
+
+        return () => clearTimeout(timer);
+    }, [
+        location.pathname,
+        location.hash,
+    ]);
+
+    const closeMobileMenu = () => {
+        setMobileOpen(false);
+        setShopOpen(false);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    /* HOME */
+    const handleHomeClick = (event) => {
+        event.preventDefault();
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
+        closeMobileMenu();
+
+        if (location.pathname === "/") {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+
+            if (location.hash) {
+                navigate("/", {
+                    replace: true,
+                });
+            }
+
+            return;
+        }
+
+        navigate("/");
     };
-  }, []);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [shopOpen, setShopOpen] = useState(false);
 
-  const closeMobileMenu = () => {
-    setMobileOpen(false);
-    setShopOpen(false);
-  };
+    /* DEALS / NEW ARRIVALS */
+    const handleSectionClick = (
+        event,
+        hash
+    ) => {
+        event.preventDefault();
 
-  return (
-    <div
-      className={`navigation ${
-        navVisible ? "navigation--visible" : "navigation--hidden"
-      } ${scrolled ? "navigation--scrolled" : ""}`}
-    >
-      <div className="container navigation__container">
-        {/* DESKTOP NAVIGATION */}
-        <nav className="navigation__links">
-          <a href="/" className="navigation__link navigation__link--active">
-            Home
-          </a>
+        closeMobileMenu();
 
-          <div
-            className={`navigation__shop ${
-              shopOpen ? "navigation__shop--open" : ""
+        navigate({
+            pathname: "/",
+            hash: hash,
+        });
+    };
+
+    const isHome =
+        location.pathname === "/" &&
+        !location.hash;
+
+    const isShop =
+        location.pathname === "/shop";
+
+    return (
+        <div
+            className={`navigation ${
+                navVisible
+                    ? "navigation--visible"
+                    : "navigation--hidden"
+            } ${
+                scrolled
+                    ? "navigation--scrolled"
+                    : ""
             }`}
-            onMouseEnter={() => setShopOpen(true)}
-            onMouseLeave={() => setShopOpen(false)}
-          >
-            <button
-              type="button"
-              className="navigation__link navigation__shop-button"
-              onClick={() => setShopOpen((prev) => !prev)}
-              aria-expanded={shopOpen}
+        >
+            <div className="container navigation__container">
+
+                {/* DESKTOP NAVIGATION */}
+
+                <nav className="navigation__links">
+
+                    {/* HOME */}
+
+                    <Link
+                        to="/"
+                        className={`navigation__link ${
+                            isHome
+                                ? "navigation__link--active"
+                                : ""
+                        }`}
+                        onClick={handleHomeClick}
+                    >
+                        Home
+                    </Link>
+
+                    {/* SHOP */}
+
+                    <div
+                        className={`navigation__shop ${
+                            shopOpen
+                                ? "navigation__shop--open"
+                                : ""
+                        }`}
+                        onMouseEnter={() =>
+                            setShopOpen(true)
+                        }
+                        onMouseLeave={() =>
+                            setShopOpen(false)
+                        }
+                    >
+                        <Link
+                            to="/shop"
+                            className={`navigation__link navigation__shop-button ${
+                                isShop
+                                    ? "navigation__link--active"
+                                    : ""
+                            }`}
+                            onClick={() =>
+                                setShopOpen(false)
+                            }
+                        >
+                            Shop
+
+                            <FiChevronDown />
+                        </Link>
+
+                        <MegaMenu variant="desktop" />
+                    </div>
+
+                    {/* OTHER LINKS */}
+
+                    {links.map((link) => {
+                        const active = link.hash
+                            ? location.pathname === "/" &&
+                              location.hash === link.hash
+                            : location.pathname === link.href;
+
+                        if (link.hash) {
+                            return (
+                                <a
+                                    key={link.label}
+                                    href={`/${link.hash}`}
+                                    className={`navigation__link ${
+                                        active
+                                            ? "navigation__link--active"
+                                            : ""
+                                    }`}
+                                    onClick={(event) =>
+                                        handleSectionClick(
+                                            event,
+                                            link.hash
+                                        )
+                                    }
+                                >
+                                    {link.hot && (
+                                        <span className="navigation__hot">
+                                            HOT
+                                        </span>
+                                    )}
+
+                                    {link.label}
+                                </a>
+                            );
+                        }
+
+                        return (
+                            <Link
+                                key={link.label}
+                                to={link.href}
+                                className={`navigation__link ${
+                                    active
+                                        ? "navigation__link--active"
+                                        : ""
+                                }`}
+                            >
+                                {link.label}
+                            </Link>
+                        );
+                    })}
+                </nav>
+            </div>
+
+            {/* MOBILE MENU */}
+
+            <div
+                className={`navigation__mobile-menu ${
+                    mobileOpen
+                        ? "navigation__mobile-menu--open"
+                        : ""
+                }`}
             >
-              Shop
-              <FiChevronDown />
-            </button>
-
-            <MegaMenu variant="desktop" />
-          </div>
-
-          {links.slice(1).map((link) => (
-            <a href={link.href} key={link.label} className="navigation__link">
-              {link.hot && <span className="navigation__hot">HOT</span>}
-
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* MOBILE BUTTON */}
-        {/* <button
-                    type="button"
-                    className={`navigation__mobile-button ${
-                        mobileOpen
-                            ? "navigation__mobile-button--open"
+                <Link
+                    to="/"
+                    className={`navigation__mobile-link ${
+                        isHome
+                            ? "navigation__mobile-link--active"
                             : ""
                     }`}
-                    aria-label={
-                        mobileOpen
-                            ? "Close navigation"
-                            : "Open navigation"
-                    }
-                    aria-expanded={mobileOpen}
+                    onClick={handleHomeClick}
+                >
+                    Home
+                </Link>
+
+                <Link
+                    to="/shop"
+                    className={`navigation__mobile-link ${
+                        isShop
+                            ? "navigation__mobile-link--active"
+                            : ""
+                    }`}
+                    onClick={closeMobileMenu}
+                >
+                    Shop
+                </Link>
+
+                <button
+                    type="button"
+                    className="navigation__mobile-link navigation__mobile-shop-button"
                     onClick={() =>
-                        setMobileOpen((prev) => !prev)
+                        setShopOpen((prev) => !prev)
                     }
                 >
-                    {mobileOpen ? <FiX /> : <FiMenu />}
-                </button> */}
-      </div>
+                    <span>
+                        Shop Categories
+                    </span>
 
-      {/* MOBILE NAVIGATION */}
-      <div
-        className={`navigation__mobile-menu ${
-          mobileOpen ? "navigation__mobile-menu--open" : ""
-        }`}
-      >
-        <a
-          href="/"
-          className="navigation__mobile-link navigation__mobile-link--active"
-          onClick={closeMobileMenu}
-        >
-          Home
-        </a>
+                    <FiChevronDown
+                        className={
+                            shopOpen
+                                ? "navigation__mobile-chevron--open"
+                                : ""
+                        }
+                    />
+                </button>
 
-        <button
-          type="button"
-          className="navigation__mobile-link navigation__mobile-shop-button"
-          onClick={() => setShopOpen((prev) => !prev)}
-        >
-          <span>Shop</span>
+                {shopOpen && (
+                    <div className="navigation__mobile-shop-content">
+                        <MegaMenu />
+                    </div>
+                )}
 
-          <FiChevronDown
-            className={shopOpen ? "navigation__mobile-chevron--open" : ""}
-          />
-        </button>
+                {links.map((link) => {
+                    const active = link.hash
+                        ? location.pathname === "/" &&
+                          location.hash === link.hash
+                        : location.pathname === link.href;
 
-        {shopOpen && (
-          <div className="navigation__mobile-shop-content">
-            <MegaMenu />
-          </div>
-        )}
+                    if (link.hash) {
+                        return (
+                            <a
+                                key={link.label}
+                                href={`/${link.hash}`}
+                                className={`navigation__mobile-link ${
+                                    active
+                                        ? "navigation__mobile-link--active"
+                                        : ""
+                                }`}
+                                onClick={(event) =>
+                                    handleSectionClick(
+                                        event,
+                                        link.hash
+                                    )
+                                }
+                            >
+                                {link.hot && (
+                                    <span className="navigation__hot">
+                                        HOT
+                                    </span>
+                                )}
 
-        {links.slice(1).map((link) => (
-          <a
-            href={link.href}
-            key={link.label}
-            className="navigation__mobile-link"
-            onClick={closeMobileMenu}
-          >
-            {link.hot && <span className="navigation__hot">HOT</span>}
+                                {link.label}
+                            </a>
+                        );
+                    }
 
-            {link.label}
-          </a>
-        ))}
-      </div>
-    </div>
-  );
+                    return (
+                        <Link
+                            key={link.label}
+                            to={link.href}
+                            className={`navigation__mobile-link ${
+                                active
+                                    ? "navigation__mobile-link--active"
+                                    : ""
+                            }`}
+                            onClick={closeMobileMenu}
+                        >
+                            {link.label}
+                        </Link>
+                    );
+                })}
+            </div>
+        </div>
+    );
 }

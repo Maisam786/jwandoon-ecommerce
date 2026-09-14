@@ -84,7 +84,7 @@
 /* SHOP */
 
 .navigation__shop {
-    position: relative;
+    position: static;
     height: 58px;
     display: flex;
     align-items: center;

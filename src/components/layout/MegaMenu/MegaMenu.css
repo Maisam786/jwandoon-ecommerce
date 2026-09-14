@@ -2,8 +2,10 @@
     position: absolute;
     top: calc(100% + 1px);
     left: 50%;
-    width: min(1180px, calc(100vw - 40px));
+    width: min(1120px, calc(100vw - 40px));
+
     padding: 24px;
+
     background: rgba(252, 249, 242, 0.98);
     border: 1px solid var(--color-border);
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
@@ -24,12 +26,16 @@
     z-index: 100;
 }
 
+/* =========================================
+   OPEN
+========================================= */
+
 .navigation__shop:hover .mega-menu,
 .navigation__shop--open .mega-menu {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translate(-50%, 0);
+    transform: translateY(0);
 }
 
 /* =========================
@@ -38,8 +44,9 @@
 
 .mega-menu__inner {
     display: grid;
-    grid-template-columns: 1.05fr 1.5fr 1fr;
-    min-height: 300px;
+    grid-template-columns: 230px minmax(0, 1fr) 245px;
+
+    min-height: 310px;
 }
 
 /* =========================
@@ -47,27 +54,31 @@
 ========================= */
 
 .mega-menu__heading {
-    margin-bottom: 15px;
+    margin-bottom: 14px;
+
     color: var(--color-text);
-    font-size: 11px;
+
+    font-size: 10px;
     font-weight: 800;
+
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
 }
 
-/* =========================
-   CATEGORIES
-========================= */
+/* =========================================
+   CATEGORIES — LEFT
+========================================= */
 
 .mega-menu__categories {
-    padding-right: 22px;
+    padding-right: 20px;
+
     border-right: 1px solid var(--color-border);
 }
 
 .mega-menu__category-list {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
 }
 
 .mega-menu__category {
@@ -76,12 +87,13 @@
 
     display: flex;
     align-items: center;
-    gap: 10px;
 
-    padding: 6px 10px;
+    gap: 10px;
+    padding: 5px 9px;
 
     color: var(--color-text-secondary);
     background: transparent;
+
     border: 0;
     border-radius: 9px;
 
@@ -103,7 +115,7 @@
 .mega-menu__category--active {
     color: var(--color-text);
     background: var(--color-surface);
-    padding-left: 14px;
+    padding-left: 13px;
 }
 
 .mega-menu__category--active {
@@ -122,17 +134,20 @@
 
     color: var(--color-primary);
     background: rgba(194, 142, 46, 0.1);
+
     border-radius: 8px;
 
     transition:
         color var(--transition-fast),
-        background var(--transition-fast);
+        background var(--transition-fast),
+        transform var(--transition-fast);
 }
 
 .mega-menu__category:hover .mega-menu__category-icon,
 .mega-menu__category--active .mega-menu__category-icon {
     color: #fff;
     background: var(--color-primary);
+    transform: scale(1.04);
 }
 
 .mega-menu__category-icon svg {
@@ -140,22 +155,23 @@
     height: 15px;
 }
 
-/* =========================
-   POPULAR
-========================= */
+/* =========================================
+   POPULAR — MIDDLE
+========================================= */
 
 .mega-menu__popular {
-    padding: 0 28px;
+    padding: 0 25px;
 }
 
 .mega-menu__items {
     display: grid;
     grid-template-columns: 1fr 1fr;
+
     gap: 3px 25px;
 }
 
 .mega-menu__item {
-    min-height: 38px;
+    min-height: 40px;
 
     display: flex;
     align-items: center;
@@ -176,6 +192,7 @@
 
 .mega-menu__item span {
     color: var(--color-primary);
+
     opacity: 0;
     transform: translateX(-5px);
 
@@ -196,6 +213,7 @@
 
 .mega-menu__view-all {
     display: inline-flex;
+
     margin-top: 18px;
 
     color: var(--color-primary);
@@ -214,18 +232,20 @@
     transform: translateX(3px);
 }
 
-/* =========================
-   BRANDS
-========================= */
+/* =========================================
+   BRANDS — RIGHT
+========================================= */
 
 .mega-menu__brands {
-    padding-left: 25px;
+    padding-left: 22px;
+
     border-left: 1px solid var(--color-border);
 }
 
 .mega-menu__brand-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
+
     gap: 8px;
 }
 
@@ -234,8 +254,8 @@
 
     display: flex;
     align-items: center;
-    gap: 9px;
 
+    gap: 9px;
     padding: 7px;
 
     color: var(--color-text-secondary);
@@ -257,8 +277,11 @@
 
 .mega-menu__brand:hover {
     color: var(--color-text);
+
     border-color: var(--color-border-light);
+
     box-shadow: var(--shadow-sm);
+
     transform: translateY(-2px);
 }
 
@@ -274,6 +297,7 @@
 
     color: var(--color-primary);
     background: var(--color-surface);
+
     border-radius: 8px;
 
     font-family: "Playfair Display", serif;
@@ -281,24 +305,85 @@
     font-weight: 700;
 }
 
-/* =========================
+.mega-menu__brand-name {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* =========================================
    TABLET
-========================= */
+========================================= */
 
 @media (max-width: 1000px) {
     .mega-menu {
         width: calc(100vw - 30px);
+        max-width: 1120px;
     }
 
     .mega-menu__inner {
-        grid-template-columns: 1fr 1.35fr 0.9fr;
+        grid-template-columns: 200px minmax(0, 1fr) 205px;
     }
 
     .mega-menu__popular {
-        padding: 0 20px;
+        padding: 0 18px;
     }
 
     .mega-menu__brands {
-        padding-left: 20px;
+        padding-left: 18px;
+    }
+
+    .mega-menu__items {
+        gap: 3px 15px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+    .mega-menu {
+        position: relative;
+
+        top: auto;
+        left: auto;
+
+        width: 100%;
+
+        padding: 12px;
+
+        transform: none;
+
+        border: 0;
+        border-radius: 10px;
+
+        box-shadow: none;
+
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+
+        backdrop-filter: none;
+    }
+
+    .mega-menu__inner {
+        display: block;
+        min-height: auto;
+    }
+
+    .mega-menu__categories {
+        padding-right: 0;
+        border-right: 0;
+    }
+
+    .mega-menu__popular {
+        padding: 15px 0;
+    }
+
+    .mega-menu__brands {
+        display: none;
     }
 }

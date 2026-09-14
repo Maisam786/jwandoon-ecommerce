@@ -7,101 +7,39 @@ import {
   FiTruck,
 } from "react-icons/fi";
 
-import hero1 from "../../../../assets/images/hero/hero-1.webp";
-import hero2 from "../../../../assets/images/hero/hero-2.webp";
-import hero3 from "../../../../assets/images/hero/hero-3.webp";
-import hero4 from "../../../../assets/images/hero/hero-4.webp";
-import hero5 from "../../../../assets/images/hero/hero-5.webp";
+import { heroSlides } from "../../../../data/heroSlides";
 
 import "./ShowcaseHero.css";
-
-const slides = [
-  {
-    id: 1,
-    image: hero1,
-    eyebrow: "WOMEN'S COLLECTION",
-    title: "Style That.",
-    highlight: "Speaks For You.",
-    description:
-      "Discover elegant purses, beautiful bracelets and carefully selected accessories designed to add the perfect touch to every look.",
-    button: "Shop Women",
-    link: "/shop?category=women",
-  },
-  {
-    id: 2,
-    image: hero2,
-    eyebrow: "MEN'S COLLECTION",
-    title: "Built For.",
-    highlight: "Your Style.",
-    description:
-      "Explore stylish caps, men's accessories, glasses and everyday essentials made for a confident and modern look.",
-    button: "Shop Men",
-    link: "/shop?category=men",
-  },
-  {
-    id: 3,
-    image: hero3,
-    eyebrow: "SMART TECHNOLOGY",
-    title: "Tech That.",
-    highlight: "Moves With You.",
-    description:
-      "Upgrade your everyday experience with headphones, wireless earbuds and smart watches built for modern life.",
-    button: "Explore Tech",
-    link: "/shop?category=electronics",
-  },
-  {
-    id: 4,
-    image: hero4,
-    eyebrow: "KIDS COLLECTION",
-    title: "Little Things.",
-    highlight: "Big Smiles.",
-    description:
-      "Bring more joy to their world with fun toys, adorable teddy bears and playful products made for little moments.",
-    button: "Shop Kids",
-    link: "/shop?category=kids",
-  },
-  {
-    id: 5,
-    image: hero5,
-    eyebrow: "TIMELESS COLLECTION",
-    title: "Every Second.",
-    highlight: "In Style.",
-    description:
-      "Complete your look with elegant men's watches that combine timeless design, confidence and everyday sophistication.",
-    button: "Shop Watches",
-    link: "/shop?category=watches",
-  },
-];
 
 export default function ShowcaseHero() {
   const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveSlide((current) => (current + 1) % slides.length);
+      setActiveSlide((current) => (current + 1) % heroSlides.length);
     }, 5000);
 
     return () => clearInterval(interval);
   }, []);
 
   const nextSlide = () => {
-    setActiveSlide((current) => (current + 1) % slides.length);
+    setActiveSlide((current) => (current + 1) % heroSlides.length);
   };
 
   const previousSlide = () => {
     setActiveSlide(
-      (current) => (current - 1 + slides.length) % slides.length
+      (current) => (current - 1 + heroSlides.length) % heroSlides.length,
     );
   };
 
-  const slide = slides[activeSlide];
+  const slide = heroSlides[activeSlide];
 
   return (
     <section className="showcase-hero">
       {/* BACKGROUND SLIDES */}
 
       <div className="showcase-hero__slides">
-        {slides.map((item, index) => (
+        {heroSlides.map((item, index) => (
           <div
             key={item.id}
             className={`showcase-hero__slide ${
@@ -128,10 +66,7 @@ export default function ShowcaseHero() {
             {slide.eyebrow}
           </span>
 
-          <h1
-            key={slide.id}
-            className="heading-font showcase-hero__title"
-          >
+          <h1 key={slide.id} className="heading-font showcase-hero__title">
             {slide.title}
             <br />
             <em>{slide.highlight}</em>
@@ -145,10 +80,7 @@ export default function ShowcaseHero() {
           </p>
 
           <div className="showcase-hero__buttons">
-            <a
-              href={slide.link}
-              className="btn btn--primary"
-            >
+            <a href={slide.link} className="btn btn--primary">
               {slide.button}
               <FiArrowRight />
             </a>
@@ -202,7 +134,7 @@ export default function ShowcaseHero() {
         </button>
 
         <div className="showcase-hero__indicators">
-          {slides.map((item, index) => (
+          {heroSlides.map((item, index) => (
             <button
               key={item.id}
               type="button"
@@ -213,11 +145,7 @@ export default function ShowcaseHero() {
           ))}
         </div>
 
-        <button
-          type="button"
-          onClick={nextSlide}
-          aria-label="Next slide"
-        >
+        <button type="button" onClick={nextSlide} aria-label="Next slide">
           <FiChevronRight />
         </button>
       </div>
@@ -225,15 +153,11 @@ export default function ShowcaseHero() {
       {/* SLIDE NUMBER */}
 
       <div className="showcase-hero__counter">
-        <strong>
-          {String(activeSlide + 1).padStart(2, "0")}
-        </strong>
+        <strong>{String(activeSlide + 1).padStart(2, "0")}</strong>
 
         <span>/</span>
 
-        <small>
-          {String(slides.length).padStart(2, "0")}
-        </small>
+        <small>{String(heroSlides.length).padStart(2, "0")}</small>
       </div>
     </section>
   );
