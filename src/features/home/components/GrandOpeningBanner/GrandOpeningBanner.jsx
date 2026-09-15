@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FiArrowRight } from "react-icons/fi";
 
 import "./GrandOpeningBanner.css";
@@ -27,10 +28,10 @@ export default function GrandOpeningBanner() {
             <strong>Kacha Pakkah, Hangu Road, Kohat, Pakistan</strong>
           </p>
 
-          <button className="grand-opening__button">
+          <Link to="/store" className="grand-opening__button">
             Visit Our Store
             <FiArrowRight />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

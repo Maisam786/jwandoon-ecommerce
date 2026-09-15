@@ -1,0 +1,423 @@
+.shipping-page {
+    padding-top: calc(var(--announcement-height) + 104px);
+    background: var(--color-background);
+}
+
+/* =========================================
+   HERO
+========================================= */
+
+.shipping-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 90px 0 80px;
+    background:
+        radial-gradient(
+            circle at 15% 40%,
+            rgba(194, 142, 46, 0.12),
+            transparent 32%
+        ),
+        var(--color-background);
+}
+
+.shipping-hero__container {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    align-items: center;
+    gap: 80px;
+}
+
+.shipping-hero__content {
+    max-width: 650px;
+}
+
+.shipping-hero__title {
+    margin: 18px 0 24px;
+    color: var(--color-text);
+    font-size: clamp(48px, 6vw, 78px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+}
+
+.shipping-hero__title em {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.shipping-hero__description {
+    max-width: 590px;
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.shipping-hero__visual {
+    position: relative;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.shipping-hero__visual::before,
+.shipping-hero__visual::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+}
+
+.shipping-hero__visual::before {
+    width: 220px;
+    height: 220px;
+    top: -90px;
+    right: -70px;
+    background: rgba(194, 142, 46, 0.1);
+}
+
+.shipping-hero__visual::after {
+    width: 180px;
+    height: 180px;
+    bottom: -80px;
+    left: -60px;
+    background: rgba(109, 76, 49, 0.08);
+}
+
+.shipping-hero__icon {
+    position: relative;
+    z-index: 1;
+    width: 82px;
+    height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 22px;
+    color: #fff;
+    background: var(--color-primary);
+    border-radius: 50%;
+    box-shadow: 0 16px 35px rgba(194, 142, 46, 0.24);
+}
+
+.shipping-hero__icon svg {
+    width: 34px;
+    height: 34px;
+}
+
+.shipping-hero__visual > span {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 12px;
+    color: var(--color-text-muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+}
+
+.shipping-hero__visual strong {
+    position: relative;
+    z-index: 1;
+    color: var(--color-text);
+    font-family: "Playfair Display", serif;
+    font-size: 27px;
+    line-height: 1.2;
+}
+
+/* =========================================
+   OVERVIEW
+========================================= */
+
+.shipping-overview {
+    padding: 70px 0;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.shipping-overview__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.shipping-card {
+    display: flex;
+    gap: 16px;
+    padding: 24px 20px;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition:
+        transform var(--transition-base),
+        box-shadow var(--transition-base);
+}
+
+.shipping-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.shipping-card__icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-primary);
+    background: rgba(194, 142, 46, 0.1);
+    border-radius: 12px;
+}
+
+.shipping-card__icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.shipping-card h3 {
+    margin: 1px 0 7px;
+    color: var(--color-text);
+    font-size: 14px;
+}
+
+.shipping-card p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+/* =========================================
+   DETAILS
+========================================= */
+
+.shipping-details {
+    padding: 100px 0;
+}
+
+.shipping-details__container {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 100px;
+    align-items: start;
+}
+
+.shipping-details__content h2,
+.shipping-info__heading h2 {
+    margin: 16px 0 24px;
+    color: var(--color-text);
+    font-size: clamp(38px, 4vw, 55px);
+    line-height: 1.03;
+    letter-spacing: -0.035em;
+}
+
+.shipping-details__content h2 em,
+.shipping-info__heading h2 em {
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.shipping-details__content p {
+    margin: 0 0 18px;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+.shipping-steps {
+    display: flex;
+    flex-direction: column;
+}
+
+.shipping-step {
+    display: grid;
+    grid-template-columns: 55px 1fr;
+    gap: 20px;
+    padding: 25px 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.shipping-step:first-child {
+    padding-top: 0;
+}
+
+.shipping-step:last-child {
+    border-bottom: 0;
+}
+
+.shipping-step > span {
+    color: var(--color-primary);
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.shipping-step h3 {
+    margin: 0 0 7px;
+    color: var(--color-text);
+    font-size: 15px;
+}
+
+.shipping-step p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* =========================================
+   INFORMATION
+========================================= */
+
+.shipping-info {
+    padding: 90px 0 110px;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+}
+
+.shipping-info__container {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 90px;
+    align-items: start;
+}
+
+.shipping-info__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.shipping-info__grid article {
+    padding: 25px;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+.shipping-info__grid h3 {
+    margin: 0 0 10px;
+    color: var(--color-text);
+    font-size: 14px;
+}
+
+.shipping-info__grid p {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.75;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+    .shipping-hero__container {
+        grid-template-columns: 1fr 350px;
+        gap: 45px;
+    }
+
+    .shipping-overview__grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .shipping-details__container,
+    .shipping-info__container {
+        gap: 50px;
+    }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 900px) {
+    .shipping-page {
+        padding-top: calc(var(--announcement-height) + 88px);
+    }
+
+    .shipping-hero {
+        padding: 65px 0;
+    }
+
+    .shipping-hero__container {
+        grid-template-columns: 1fr;
+    }
+
+    .shipping-hero__content {
+        max-width: 650px;
+    }
+
+    .shipping-hero__visual {
+        min-height: 280px;
+    }
+
+    .shipping-details__container,
+    .shipping-info__container {
+        grid-template-columns: 1fr;
+    }
+
+    .shipping-details {
+        padding: 75px 0;
+    }
+
+    .shipping-info {
+        padding: 75px 0;
+    }
+}
+
+@media (max-width: 700px) {
+    .shipping-page {
+        padding-top: calc(var(--announcement-height) + 72px);
+    }
+
+    .shipping-hero {
+        padding: 50px 0 55px;
+    }
+
+    .shipping-hero__title {
+        font-size: 46px;
+    }
+
+    .shipping-hero__description {
+        font-size: 14px;
+    }
+
+    .shipping-overview {
+        padding: 45px 0;
+    }
+
+    .shipping-overview__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .shipping-card {
+        padding: 20px;
+    }
+
+    .shipping-details {
+        padding: 60px 0;
+    }
+
+    .shipping-details__content h2,
+    .shipping-info__heading h2 {
+        font-size: 38px;
+    }
+
+    .shipping-info {
+        padding: 60px 0;
+    }
+
+    .shipping-info__grid {
+        grid-template-columns: 1fr;
+    }
+}

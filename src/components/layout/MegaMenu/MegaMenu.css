@@ -2,6 +2,7 @@
     position: absolute;
     top: calc(100% + 1px);
     left: 50%;
+
     width: min(1120px, calc(100vw - 40px));
 
     padding: 24px;
@@ -10,6 +11,7 @@
     border: 1px solid var(--color-border);
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
     box-shadow: var(--shadow-lg);
+
     backdrop-filter: blur(14px);
 
     opacity: 0;
@@ -30,12 +32,11 @@
    OPEN
 ========================================= */
 
-.navigation__shop:hover .mega-menu,
 .navigation__shop--open .mega-menu {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translateY(0);
+    transform: translate(-50%, 0);
 }
 
 /* =========================

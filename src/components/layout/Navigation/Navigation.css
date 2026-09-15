@@ -81,7 +81,9 @@
     background: var(--color-primary-hover);
 }
 
-/* SHOP */
+/* =========================
+    SHOP
+ ========================= */
 
 .navigation__shop {
     position: static;
@@ -102,19 +104,20 @@
     transition: transform var(--transition-base);
 }
 
-.navigation__shop:hover .navigation__shop-button svg,
-.navigation__shop--open .navigation__shop-button svg {
+.navigation__shop--open
+    .navigation__shop-button
+    svg {
     transform: rotate(180deg);
 }
 
-/* Keep mega menu visible while moving from button to panel */
+/* Mega menu is controlled only by React state */
 
-.navigation__shop:hover .mega-menu,
 .navigation__shop--open .mega-menu {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%)
+        translateY(0);
 }
 
 /* HOT */

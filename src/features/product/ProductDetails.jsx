@@ -10,6 +10,8 @@ import {
   FiShield,
 } from "react-icons/fi";
 import { useState } from "react";
+import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 
 import products from "../../data/products";
 import RelatedProducts from "./components/RelatedProducts/RelatedProducts";
@@ -21,8 +23,15 @@ export default function ProductDetails() {
 
   const product = products.find((item) => item.id === Number(id));
 
+  const { addToCart } = useCart();
+
+  const { toggleWishlist, isInWishlist } = useWishlist();
+
+  const isWishlisted = isInWishlist(product.id);
+
   const [quantity, setQuantity] = useState(1);
   const [wishlist, setWishlist] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(0);
 
   if (!product) {
     return (
@@ -84,25 +93,43 @@ export default function ProductDetails() {
 
               <button
                 type="button"
-                className={`product-gallery__wishlist ${
-                  wishlist ? "product-gallery__wishlist--active" : ""
+                className={`product-details__wishlist ${
+                  isWishlisted ? "product-details__wishlist--active" : ""
                 }`}
-                onClick={() => setWishlist((prev) => !prev)}
-                aria-label="Add to wishlist"
+                onClick={() => toggleWishlist(product)}
+                aria-label={
+                  isWishlisted ? "Remove from wishlist" : "Add to wishlist"
+                }
               >
                 <FiHeart />
+                <span>
+                  {isWishlisted ? "Added to Wishlist" : "Add to Wishlist"}
+                </span>
               </button>
 
-              <img src={product.image} alt={product.name} />
+              <img
+                key={selectedImage}
+                src={product.images?.[selectedImage] || product.image}
+                alt={product.name}
+              />
             </div>
 
             <div className="product-gallery__thumbs">
-              <button
-                type="button"
-                className="product-gallery__thumb product-gallery__thumb--active"
-              >
-                <img src={product.image} alt="" />
-              </button>
+              {product.images?.map((image, index) => (
+                <button
+                  key={image}
+                  type="button"
+                  className={`product-gallery__thumb ${
+                    selectedImage === index
+                      ? "product-gallery__thumb--active"
+                      : ""
+                  }`}
+                  onClick={() => setSelectedImage(index)}
+                  aria-label={`View product image ${index + 1}`}
+                >
+                  <img src={image} alt="" />
+                </button>
+              ))}
             </div>
           </div>
 
@@ -172,7 +199,11 @@ export default function ProductDetails() {
             {/* ACTIONS */}
 
             <div className="product-info__actions">
-              <button type="button" className="product-info__add">
+              <button
+                type="button"
+                className="product-info__add"
+                onClick={() => addToCart(product, quantity)}
+              >
                 <FiShoppingBag />
                 Add to Cart
               </button>
@@ -222,11 +253,7 @@ export default function ProductDetails() {
           </div>
 
           <div className="product-description__content">
-            <p>
-              At Jwandoon, we carefully select products that combine
-              functionality, modern design, and everyday value. Every product is
-              chosen with our customers' shopping experience in mind.
-            </p>
+            <p>{product.description}</p>
 
             <div className="product-description__specs">
               <div>

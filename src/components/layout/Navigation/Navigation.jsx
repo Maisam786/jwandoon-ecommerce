@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
-import {
-    Link,
-    useLocation,
-    useNavigate,
-} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import MegaMenu from "../MegaMenu/MegaMenu";
 
@@ -38,11 +34,24 @@ export default function Navigation() {
     const [scrolled, setScrolled] = useState(false);
     const [shopOpen, setShopOpen] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const [activeSection, setActiveSection] = useState(null);
 
-    const [activeSection, setActiveSection] =
-        useState(null);
+    /* =========================================
+       CLOSE MENUS AFTER NAVIGATION
+    ========================================= */
 
-    /* NAVIGATION SCROLL BEHAVIOR */
+    useEffect(() => {
+        setShopOpen(false);
+        setMobileOpen(false);
+    }, [
+        location.pathname,
+        location.search,
+        location.hash,
+    ]);
+
+    /* =========================================
+       NAVIGATION SCROLL BEHAVIOR
+    ========================================= */
 
     useEffect(() => {
         let lastScrollY = window.scrollY;
@@ -63,11 +72,9 @@ export default function Navigation() {
             lastScrollY = currentScrollY;
         };
 
-        window.addEventListener(
-            "scroll",
-            handleScroll,
-            { passive: true }
-        );
+        window.addEventListener("scroll", handleScroll, {
+            passive: true,
+        });
 
         return () => {
             window.removeEventListener(
@@ -77,7 +84,9 @@ export default function Navigation() {
         };
     }, []);
 
-    /* ACTIVE HOME SECTIONS */
+    /* =========================================
+       ACTIVE HOME SECTIONS
+    ========================================= */
 
     useEffect(() => {
         if (location.pathname !== "/") {
@@ -142,8 +151,10 @@ export default function Navigation() {
             if (!newArrivals || !deals) return;
 
             const navigationOffset = 140;
+
             const currentPosition =
-                window.scrollY + navigationOffset;
+                window.scrollY +
+                navigationOffset;
 
             const newArrivalsTop =
                 newArrivals.offsetTop;
@@ -187,7 +198,9 @@ export default function Navigation() {
         };
     }, [location.pathname]);
 
-    /* SCROLL TO HASHED SECTION */
+    /* =========================================
+       SCROLL TO HASHED SECTION
+    ========================================= */
 
     useEffect(() => {
         if (!location.hash) return;
@@ -204,7 +217,8 @@ export default function Navigation() {
             const navigationOffset = 120;
 
             const position =
-                section.getBoundingClientRect().top +
+                section.getBoundingClientRect()
+                    .top +
                 window.scrollY -
                 navigationOffset;
 
@@ -220,18 +234,23 @@ export default function Navigation() {
         location.hash,
     ]);
 
-    const closeMobileMenu = () => {
-        setMobileOpen(false);
+    /* =========================================
+       CLOSE ALL MENUS
+    ========================================= */
+
+    const closeMenus = () => {
         setShopOpen(false);
+        setMobileOpen(false);
     };
 
-    /* HOME */
+    /* =========================================
+       HOME
+    ========================================= */
 
     const handleHomeClick = (event) => {
         event.preventDefault();
 
-        closeMobileMenu();
-
+        closeMenus();
         setActiveSection(null);
 
         if (location.pathname === "/") {
@@ -252,7 +271,9 @@ export default function Navigation() {
         navigate("/");
     };
 
-    /* DEALS / NEW ARRIVALS */
+    /* =========================================
+       DEALS / NEW ARRIVALS
+    ========================================= */
 
     const handleSectionClick = (
         event,
@@ -260,8 +281,7 @@ export default function Navigation() {
     ) => {
         event.preventDefault();
 
-        closeMobileMenu();
-
+        closeMenus();
         setActiveSection(hash);
 
         navigate({
@@ -269,6 +289,27 @@ export default function Navigation() {
             hash,
         });
     };
+
+    /* =========================================
+       SHOP MENU
+    ========================================= */
+
+    const handleShopMouseEnter = () => {
+        setShopOpen(true);
+    };
+
+    const handleShopMouseLeave = () => {
+        setShopOpen(false);
+    };
+
+    const handleShopClick = () => {
+        setShopOpen(false);
+        setMobileOpen(false);
+    };
+
+    /* =========================================
+       ACTIVE STATES
+    ========================================= */
 
     const isHome =
         location.pathname === "/" &&
@@ -317,11 +358,11 @@ export default function Navigation() {
                                 ? "navigation__shop--open"
                                 : ""
                         }`}
-                        onMouseEnter={() =>
-                            setShopOpen(true)
+                        onMouseEnter={
+                            handleShopMouseEnter
                         }
-                        onMouseLeave={() =>
-                            setShopOpen(false)
+                        onMouseLeave={
+                            handleShopMouseLeave
                         }
                     >
                         <Link
@@ -331,8 +372,8 @@ export default function Navigation() {
                                     ? "navigation__link--active"
                                     : ""
                             }`}
-                            onClick={() =>
-                                setShopOpen(false)
+                            onClick={
+                                handleShopClick
                             }
                         >
                             Shop
@@ -340,14 +381,17 @@ export default function Navigation() {
                             <FiChevronDown />
                         </Link>
 
-                        <MegaMenu variant="desktop" />
+                        <MegaMenu
+                            variant="desktop"
+                        />
                     </div>
 
                     {/* DEALS / NEW ARRIVALS / OTHER LINKS */}
 
                     {links.map((link) => {
                         const active = link.hash
-                            ? activeSection === link.hash
+                            ? activeSection ===
+                              link.hash
                             : location.pathname ===
                               link.href;
 
@@ -361,7 +405,9 @@ export default function Navigation() {
                                             ? "navigation__link--active"
                                             : ""
                                     }`}
-                                    onClick={(event) =>
+                                    onClick={(
+                                        event
+                                    ) =>
                                         handleSectionClick(
                                             event,
                                             link.hash
@@ -388,6 +434,9 @@ export default function Navigation() {
                                         ? "navigation__link--active"
                                         : ""
                                 }`}
+                                onClick={
+                                    closeMenus
+                                }
                             >
                                 {link.label}
                             </Link>
@@ -412,7 +461,9 @@ export default function Navigation() {
                             ? "navigation__mobile-link--active"
                             : ""
                     }`}
-                    onClick={handleHomeClick}
+                    onClick={
+                        handleHomeClick
+                    }
                 >
                     Home
                 </Link>
@@ -424,7 +475,9 @@ export default function Navigation() {
                             ? "navigation__mobile-link--active"
                             : ""
                     }`}
-                    onClick={closeMobileMenu}
+                    onClick={
+                        closeMenus
+                    }
                 >
                     Shop
                 </Link>
@@ -433,7 +486,10 @@ export default function Navigation() {
                     type="button"
                     className="navigation__mobile-link navigation__mobile-shop-button"
                     onClick={() =>
-                        setShopOpen((prev) => !prev)
+                        setShopOpen(
+                            (previous) =>
+                                !previous
+                        )
                     }
                 >
                     <span>
@@ -460,7 +516,8 @@ export default function Navigation() {
                 <a
                     href="/#deals"
                     className={`navigation__mobile-link ${
-                        activeSection === "#deals"
+                        activeSection ===
+                        "#deals"
                             ? "navigation__mobile-link--active"
                             : ""
                     }`}
@@ -503,7 +560,10 @@ export default function Navigation() {
                 {/* ABOUT / CONTACT */}
 
                 {links
-                    .filter((link) => !link.hash)
+                    .filter(
+                        (link) =>
+                            !link.hash
+                    )
                     .map((link) => (
                         <Link
                             key={link.label}
@@ -514,7 +574,9 @@ export default function Navigation() {
                                     ? "navigation__mobile-link--active"
                                     : ""
                             }`}
-                            onClick={closeMobileMenu}
+                            onClick={
+                                closeMenus
+                            }
                         >
                             {link.label}
                         </Link>

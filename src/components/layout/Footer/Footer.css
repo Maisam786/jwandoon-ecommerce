@@ -278,3 +278,23 @@
         text-align: center;
     }
 }
+
+
+#about-jwandoon,
+#our-story {
+    scroll-margin-top: calc(var(--announcement-height) + 104px + 20px);
+}
+
+@media (max-width: 900px) {
+    #about-jwandoon,
+    #our-story {
+        scroll-margin-top: calc(var(--announcement-height) + 88px + 20px);
+    }
+}
+
+@media (max-width: 700px) {
+    #about-jwandoon,
+    #our-story {
+        scroll-margin-top: calc(var(--announcement-height) + 72px + 20px);
+    }
+}

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FiArrowRight, FiZap } from "react-icons/fi";
 
 import "./PromoBanner.css";
@@ -26,13 +27,13 @@ export default function PromoBanner() {
                             exclusive deals available for a limited time.
                         </p>
 
-                        <a
-                            href="/deals"
+                        <Link
+                            to="/shop?collection=deals"
                             className="promo-banner__button"
                         >
                             Explore Deals
                             <FiArrowRight />
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="promo-banner__visual">

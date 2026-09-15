@@ -232,6 +232,21 @@
     color: #d64545;
 }
 
+.product-card__action--active {
+    color: var(--color-primary);
+    background: rgba(194, 142, 46, 0.1);
+}
+
+.product-card__action--active:hover {
+    color: var(--color-primary);
+    background: rgba(194, 142, 46, 0.16);
+}
+
+.product-card__heart--filled {
+    fill: currentColor;
+    stroke-width: 1.8;
+}
+
 /* ================================
    ADD TO CART
 ================================ */

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Footer.css";
 import {
   FiFacebook,
@@ -19,7 +20,9 @@ export default function Footer() {
         <div className="footer-newsletter-content">
           <div>
             <span className="footer-eyebrow">STAY CONNECTED</span>
-            <h2>Get the latest from <em>Jwandoon</em></h2>
+            <h2>
+              Get the latest from <em>Jwandoon</em>
+            </h2>
             <p>
               Subscribe for new arrivals, exclusive offers and special updates.
             </p>
@@ -35,9 +38,9 @@ export default function Footer() {
       {/* Main Footer */}
       <div className="footer-main">
         <div className="footer-brand">
-          <a href="/" className="main-footer__logo" >
+          <Link to="/" className="main-footer__logo">
             <img src={logo} alt="Jwandoon" />
-          </a>
+          </Link>
           <p>
             Your trusted destination for quality products, great value and a
             better shopping experience.
@@ -61,26 +64,29 @@ export default function Footer() {
 
         <div className="footer-column">
           <h3>Shop</h3>
-          <a href="/shop">All Products</a>
-          <a href="/shop">New Arrivals</a>
-          <a href="/shop">Best Sellers</a>
-          <a href="/shop">Special Offers</a>
+
+          <Link to="/shop">All Products</Link>
+          <Link to="/shop?collection=new-arrivals">New Arrivals</Link>
+          <Link to="/shop?collection=best-sellers">Best Sellers</Link>
+          <Link to="/shop?collection=deals">Special Offers</Link>
         </div>
 
         <div className="footer-column">
           <h3>Customer Care</h3>
-          <a href="#">Contact Us</a>
-          <a href="#">Shipping & Delivery</a>
-          <a href="#">Returns & Exchanges</a>
-          <a href="#">FAQs</a>
+
+          <Link to="/contact">Contact Us</Link>
+          <Link to="/shipping">Shipping & Delivery</Link>
+          <Link to="/returns">Returns & Exchanges</Link>
+          <Link to="/faqs">FAQs</Link>
         </div>
 
         <div className="footer-column">
           <h3>Company</h3>
-          <a href="#">About Jwandoon</a>
-          <a href="#">Our Story</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms & Conditions</a>
+
+          <Link to="/about#about-jwandoon">About Jwandoon</Link>
+          <Link to="/about#our-story">Our Story</Link>
+          <Link to="/privacy">Privacy Policy</Link>
+          <Link to="/terms">Terms & Conditions</Link>
         </div>
 
         <div className="footer-column footer-contact">

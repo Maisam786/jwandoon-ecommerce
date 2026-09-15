@@ -18,7 +18,7 @@ export default function About() {
     <main className="about-page">
       {/* HERO */}
 
-      <section className="about-hero">
+      <section id="about-jwandoon" className="about-hero">
         <div className="container about-hero__container">
           <div className="about-hero__content">
             <span className="about-hero__eyebrow">
