@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { shopCategories } from "../../../data/categories";
+import products from "../../../data/products";
 
 import "./MegaMenu.css";
 
@@ -12,6 +13,12 @@ export default function MegaMenu({ variant = "desktop" }) {
 
     const active = categories[activeCategory];
 
+    const getCategoryCount = (categoryId) => {
+        return products.filter(
+            (product) => product.categoryId === categoryId
+        ).length;
+    };
+
     return (
         <div className="mega-menu">
             <div className="mega-menu__inner">
@@ -20,12 +27,14 @@ export default function MegaMenu({ variant = "desktop" }) {
 
                 <div className="mega-menu__categories">
                     <div className="mega-menu__heading">
-                        Categories
+                        <span>Shop by</span>
+                        <strong>Category</strong>
                     </div>
 
                     <div className="mega-menu__category-list">
                         {categories.map((category, index) => {
                             const Icon = category.icon;
+                            const count = getCategoryCount(category.id);
 
                             return (
                                 <button
@@ -44,7 +53,22 @@ export default function MegaMenu({ variant = "desktop" }) {
                                         <Icon />
                                     </span>
 
-                                    <span>{category.name}</span>
+                                    <span className="mega-menu__category-content">
+                                        <span className="mega-menu__category-name">
+                                            {category.name}
+                                        </span>
+
+                                        <span className="mega-menu__category-count">
+                                            {count}{" "}
+                                            {count === 1
+                                                ? "product"
+                                                : "products"}
+                                        </span>
+                                    </span>
+
+                                    <span className="mega-menu__category-arrow">
+                                        →
+                                    </span>
                                 </button>
                             );
                         })}
@@ -54,8 +78,20 @@ export default function MegaMenu({ variant = "desktop" }) {
                 {/* Subcategories */}
 
                 <div className="mega-menu__popular">
-                    <div className="mega-menu__heading">
-                        Popular in {active.name}
+                    <div className="mega-menu__section-top">
+                        <div>
+                            <span className="mega-menu__eyebrow">
+                                Explore
+                            </span>
+
+                            <h3 className="mega-menu__section-title">
+                                {active.name}
+                            </h3>
+                        </div>
+
+                        <span className="mega-menu__product-count">
+                            {getCategoryCount(active.id)} products
+                        </span>
                     </div>
 
                     <div className="mega-menu__items">
@@ -65,8 +101,11 @@ export default function MegaMenu({ variant = "desktop" }) {
                                 to={`/shop?category=${active.id}`}
                                 className="mega-menu__item"
                             >
-                                {item}
-                                <span>→</span>
+                                <span>{item}</span>
+
+                                <span className="mega-menu__item-arrow">
+                                    →
+                                </span>
                             </Link>
                         ))}
                     </div>
@@ -76,6 +115,7 @@ export default function MegaMenu({ variant = "desktop" }) {
                         className="mega-menu__view-all"
                     >
                         View all {active.name}
+                        <span>→</span>
                     </Link>
                 </div>
 
@@ -83,7 +123,8 @@ export default function MegaMenu({ variant = "desktop" }) {
 
                 <div className="mega-menu__brands">
                     <div className="mega-menu__heading">
-                        Top Brands
+                        <span>Featured</span>
+                        <strong>Brands</strong>
                     </div>
 
                     <div className="mega-menu__brand-list">

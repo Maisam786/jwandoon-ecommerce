@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { shopCategories } from "../../../../data/categories";
+import products from "../../../../data/products";
 
 import "./ShopSidebar.css";
 
@@ -29,6 +30,12 @@ export default function ShopSidebar({
 }) {
     const navigate = useNavigate();
 
+    const getCategoryCount = (categoryId) => {
+        return products.filter(
+            (product) => product.categoryId === categoryId
+        ).length;
+    };
+
     const handleCategoryChange = (categoryId) => {
         if (categoryId === "all-products") {
             navigate("/shop");
@@ -53,6 +60,7 @@ export default function ShopSidebar({
 
     return (
         <aside className="shop-sidebar">
+
             <div className="shop-sidebar__header">
                 <span className="shop-sidebar__eyebrow">
                     Browse
@@ -61,7 +69,14 @@ export default function ShopSidebar({
                 <h2 className="shop-sidebar__title">
                     Shop
                 </h2>
+
+                <p className="shop-sidebar__description">
+                    Explore everything available at Jwandoon.
+                </p>
             </div>
+
+
+            {/* Categories */}
 
             <div className="shop-sidebar__section">
                 <h3 className="shop-sidebar__section-title">
@@ -69,24 +84,55 @@ export default function ShopSidebar({
                 </h3>
 
                 <div className="shop-sidebar__options">
-                    {shopCategories.map((category) => (
-                        <button
-                            key={category.id}
-                            type="button"
-                            className={
-                                activeCategory === category.id
-                                    ? "shop-sidebar__option shop-sidebar__option--active"
-                                    : "shop-sidebar__option"
-                            }
-                            onClick={() =>
-                                handleCategoryChange(category.id)
-                            }
-                        >
-                            <span>{category.name}</span>
-                        </button>
-                    ))}
+
+                    <button
+                        type="button"
+                        className={
+                            activeCategory === "all-products"
+                                ? "shop-sidebar__option shop-sidebar__option--active"
+                                : "shop-sidebar__option"
+                        }
+                        onClick={() =>
+                            handleCategoryChange("all-products")
+                        }
+                    >
+                        <span>All Products</span>
+
+                        <span className="shop-sidebar__count">
+                            {products.length}
+                        </span>
+                    </button>
+
+                    {shopCategories.map((category) => {
+                        const count = getCategoryCount(category.id);
+
+                        return (
+                            <button
+                                key={category.id}
+                                type="button"
+                                className={
+                                    activeCategory === category.id
+                                        ? "shop-sidebar__option shop-sidebar__option--active"
+                                        : "shop-sidebar__option"
+                                }
+                                onClick={() =>
+                                    handleCategoryChange(category.id)
+                                }
+                            >
+                                <span>{category.name}</span>
+
+                                <span className="shop-sidebar__count">
+                                    {count}
+                                </span>
+                            </button>
+                        );
+                    })}
+
                 </div>
             </div>
+
+
+            {/* Collections */}
 
             <div className="shop-sidebar__section">
                 <h3 className="shop-sidebar__section-title">
@@ -94,26 +140,36 @@ export default function ShopSidebar({
                 </h3>
 
                 <div className="shop-sidebar__options">
-                    {collections.map((collection) => (
-                        <button
-                            key={collection.id}
-                            type="button"
-                            className={
-                                activeCollection === collection.id
-                                    ? "shop-sidebar__option shop-sidebar__option--active"
-                                    : "shop-sidebar__option"
-                            }
-                            onClick={() =>
-                                handleCollectionChange(
-                                    collection.id
-                                )
-                            }
-                        >
-                            <span>{collection.name}</span>
-                        </button>
-                    ))}
+
+                    {collections
+                        .filter(
+                            (collection) =>
+                                collection.id !== "all-products"
+                        )
+                        .map((collection) => (
+                            <button
+                                key={collection.id}
+                                type="button"
+                                className={
+                                    activeCollection === collection.id
+                                        ? "shop-sidebar__option shop-sidebar__option--active"
+                                        : "shop-sidebar__option"
+                                }
+                                onClick={() =>
+                                    handleCollectionChange(
+                                        collection.id
+                                    )
+                                }
+                            >
+                                <span>{collection.name}</span>
+                            </button>
+                        ))}
+
                 </div>
             </div>
+
+
+            {/* Clear */}
 
             <button
                 type="button"
@@ -122,6 +178,7 @@ export default function ShopSidebar({
             >
                 Clear Filters
             </button>
+
         </aside>
     );
 }
